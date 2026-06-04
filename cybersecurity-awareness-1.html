@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shakeel Anjum — Cyber Awareness Expert | CyberShield India</title>
+<meta name="description" content="Cyber awareness platform by Shakeel Anjum — Cyber Law Consultant, Forensic Expert & Digital Safety Educator. Learn about Indian cyber laws, scams, reporting.">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════ */
+:root{
+  --bg:#02080f; --bg2:#050e1a; --bg3:#071525;
+  --panel:rgba(5,16,32,0.9); --panel2:rgba(7,20,38,0.95);
+  --border:rgba(0,200,255,0.12); --border-hot:rgba(0,200,255,0.45);
+  --cyan:#00c8ff; --cyan-dim:rgba(0,200,255,0.55); --cyan-glow:rgba(0,200,255,0.1);
+  --green:#00e87a; --green-dim:rgba(0,232,122,0.55);
+  --amber:#ffb300; --red:#ff3d3d; --red-dim:rgba(255,61,61,0.55);
+  --purple:#9f5fff; --orange:#ff6b1a;
+  --text:#b8d4e8; --text-dim:#4a6880; --text-bright:#dff0ff;
+  --mono:'Share Tech Mono',monospace;
+  --head:'Rajdhani',sans-serif;
+  --body:'Exo 2',sans-serif;
+  --radius:3px;
+  --shadow:0 8px 40px rgba(0,0,0,0.6);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;line-height:1.6;}
+
+/* Scanlines overlay */
+body::before{content:'';position:fixed;inset:0;z-index:2000;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.018) 3px,rgba(0,0,0,0.018) 4px);}
+/* Grid bg */
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,200,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,255,0.018) 1px,transparent 1px);
+  background-size:50px 50px;}
+#mc{position:fixed;top:0;left:0;z-index:0;opacity:0.04;pointer-events:none;}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes blink{50%{opacity:0.25}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 12px rgba(0,200,255,0.3)}50%{box-shadow:0 0 28px rgba(0,200,255,0.6)}}
+@keyframes redPulse{0%,100%{box-shadow:0 4px 18px rgba(255,61,61,0.4)}50%{box-shadow:0 4px 30px rgba(255,61,61,0.75)}}
+@keyframes scrollLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+@keyframes counterUp{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+
+/* ═══════════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════════ */
+.z1{position:relative;z-index:1;}
+.cyan{color:var(--cyan);}
+.green{color:var(--green);}
+.amber{color:var(--amber);}
+.red{color:var(--red);}
+
+/* ═══════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════ */
+nav{position:fixed;top:0;inset-inline:0;z-index:700;height:60px;
+  background:rgba(2,8,15,0.96);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:0 28px;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;
+  font-family:var(--head);font-size:1.2rem;font-weight:700;color:var(--cyan);letter-spacing:0.06em;}
+.nav-logo .shield{font-size:1.4rem;filter:drop-shadow(0 0 8px var(--cyan));}
+.nav-links{display:flex;gap:0;overflow:hidden;}
+.nav-links a{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;
+  color:var(--text-dim);text-decoration:none;padding:6px 11px;
+  border:1px solid transparent;transition:all 0.22s;text-transform:uppercase;white-space:nowrap;}
+.nav-links a:hover{color:var(--cyan);border-color:var(--border);background:var(--cyan-glow);}
+.nav-r{display:flex;align-items:center;gap:10px;}
+.live-dot{font-family:var(--mono);font-size:0.58rem;color:var(--green);
+  border:1px solid rgba(0,232,122,0.28);padding:3px 8px;letter-spacing:0.1em;animation:blink 2s step-end infinite;}
+.ham{display:none;background:none;border:1px solid var(--border);color:var(--cyan);
+  font-size:1rem;cursor:pointer;padding:5px 10px;transition:all 0.2s;}
+.ham:hover{background:var(--cyan-glow);}
+
+/* ── MOBILE DRAWER ── */
+.drawer{display:none;position:fixed;top:60px;inset-inline:0;z-index:699;
+  background:rgba(2,8,15,0.99);border-bottom:1px solid var(--border);
+  flex-direction:column;padding:6px 0;max-height:85vh;overflow-y:auto;}
+.drawer.open{display:flex;}
+.drawer a{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.09em;
+  color:var(--text-dim);text-decoration:none;padding:13px 24px;
+  border-bottom:1px solid rgba(0,200,255,0.04);text-transform:uppercase;transition:all 0.18s;}
+.drawer a:hover{color:var(--cyan);background:var(--cyan-glow);padding-left:30px;}
+
+/* ── STICKY BOTTOM (mobile) ── */
+.s-bottom{display:none;position:fixed;bottom:0;inset-inline:0;z-index:680;
+  background:rgba(2,8,15,0.97);border-top:1px solid var(--border);
+  padding:8px 0 10px;justify-content:space-around;}
+.sb-a{display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:var(--text-dim);text-decoration:none;font-family:var(--mono);font-size:0.5rem;
+  letter-spacing:0.06em;text-transform:uppercase;transition:color 0.18s;padding:0 8px;}
+.sb-a:hover,.sb-a.act{color:var(--cyan);}
+.sb-ico{font-size:1.25rem;line-height:1;}
+
+/* ── FABs ── */
+.fab-report{position:fixed;bottom:76px;right:16px;z-index:690;
+  background:linear-gradient(135deg,#e50000,#920000);
+  border:none;color:#fff;font-family:var(--mono);font-size:0.62rem;
+  letter-spacing:0.1em;padding:11px 14px;cursor:pointer;
+  animation:redPulse 2.2s ease-in-out infinite;text-transform:uppercase;
+  border-radius:var(--radius);text-decoration:none;display:block;line-height:1.4;}
+.fab-wa{position:fixed;bottom:76px;left:16px;z-index:690;
+  background:linear-gradient(135deg,#1a8c3a,#0d5e27);
+  border:none;color:#fff;font-family:var(--mono);font-size:0.62rem;
+  letter-spacing:0.08em;padding:11px 14px;cursor:pointer;
+  box-shadow:0 4px 18px rgba(25,135,84,0.4);text-transform:uppercase;
+  border-radius:var(--radius);text-decoration:none;display:block;line-height:1.4;transition:box-shadow 0.3s;}
+.fab-wa:hover{box-shadow:0 4px 28px rgba(25,135,84,0.65);}
+
+/* ═══════════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════════ */
+.ticker-wrap{background:rgba(255,61,61,0.08);border-bottom:1px solid rgba(255,61,61,0.22);
+  padding:7px 0;overflow:hidden;position:fixed;top:60px;inset-inline:0;z-index:695;}
+.ticker-label{position:absolute;left:0;z-index:2;
+  background:var(--red);color:#fff;font-family:var(--mono);font-size:0.6rem;
+  letter-spacing:0.12em;padding:0 12px;height:100%;display:flex;align-items:center;white-space:nowrap;}
+.ticker-track{display:flex;width:max-content;animation:scrollLeft 38s linear infinite;}
+.ticker-track:hover{animation-play-state:paused;}
+.ticker-item{font-family:var(--mono);font-size:0.62rem;color:var(--amber);
+  letter-spacing:0.06em;padding:0 36px;white-space:nowrap;}
+.ticker-item::before{content:'⚠ ';color:var(--red);}
+
+/* ═══════════════════════════════════════════════
+   SECTION SHELL
+═══════════════════════════════════════════════ */
+section{position:relative;z-index:1;}
+.s-head{text-align:center;padding:72px 20px 44px;}
+.s-tag{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;
+  color:var(--cyan);text-transform:uppercase;display:block;margin-bottom:10px;}
+.s-title{font-family:var(--head);font-size:clamp(1.7rem,4vw,2.8rem);
+  font-weight:700;color:var(--text-bright);letter-spacing:0.03em;margin-bottom:10px;line-height:1.15;}
+.s-desc{color:var(--text-dim);max-width:600px;margin:0 auto;font-weight:300;
+  line-height:1.75;font-size:0.95rem;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px;}
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:140px 20px 80px;overflow:hidden;}
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:800px;height:600px;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(0,200,255,0.06) 0%,transparent 68%);}
+.hero-badge{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.2em;
+  color:var(--green);border:1px solid rgba(0,232,122,0.28);
+  padding:6px 18px;margin-bottom:22px;display:inline-block;
+  background:rgba(0,232,122,0.05);animation:fadeUp 0.7s ease both;}
+.hero h1{font-family:var(--head);font-size:clamp(2rem,5.5vw,4.4rem);
+  font-weight:700;line-height:1.1;color:var(--text-bright);
+  margin-bottom:12px;animation:fadeUp 0.7s 0.1s ease both;letter-spacing:0.02em;}
+.hero h1 span{color:var(--cyan);text-shadow:0 0 36px rgba(0,200,255,0.45);}
+.hero h2{font-family:var(--body);font-size:clamp(0.9rem,2vw,1.1rem);
+  color:var(--text-dim);font-weight:300;margin-bottom:34px;line-height:1.7;
+  max-width:640px;animation:fadeUp 0.7s 0.18s ease both;}
+.hero h2 strong{color:var(--cyan);font-weight:500;}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:48px;animation:fadeUp 0.7s 0.26s ease both;}
+.btn-p{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);
+  font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;
+  padding:13px 24px;background:linear-gradient(135deg,rgba(0,200,255,0.14),rgba(0,200,255,0.06));
+  border:1px solid var(--cyan);color:var(--cyan);cursor:pointer;
+  text-decoration:none;transition:all 0.24s;border-radius:var(--radius);}
+.btn-p:hover{background:rgba(0,200,255,0.22);box-shadow:0 0 22px rgba(0,200,255,0.18);transform:translateY(-2px);}
+.btn-d{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);
+  font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;
+  padding:13px 24px;background:linear-gradient(135deg,rgba(255,61,61,0.18),rgba(255,61,61,0.08));
+  border:1px solid rgba(255,61,61,0.5);color:var(--red);cursor:pointer;
+  text-decoration:none;transition:all 0.24s;border-radius:var(--radius);}
+.btn-d:hover{background:rgba(255,61,61,0.28);box-shadow:0 0 22px rgba(255,61,61,0.18);transform:translateY(-2px);}
+.btn-g{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);
+  font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;
+  padding:13px 24px;background:linear-gradient(135deg,rgba(0,232,122,0.14),rgba(0,232,122,0.06));
+  border:1px solid rgba(0,232,122,0.45);color:var(--green);cursor:pointer;
+  text-decoration:none;transition:all 0.24s;border-radius:var(--radius);}
+.btn-g:hover{background:rgba(0,232,122,0.22);box-shadow:0 0 22px rgba(0,232,122,0.18);transform:translateY(-2px);}
+.hero-stats{display:flex;gap:0;border:1px solid var(--border);
+  animation:fadeUp 0.7s 0.34s ease both;}
+.hs{padding:18px 28px;text-align:center;border-right:1px solid var(--border);}
+.hs:last-child{border-right:none;}
+.hs-val{font-family:var(--mono);font-size:1.6rem;color:var(--cyan);
+  display:block;text-shadow:0 0 18px rgba(0,200,255,0.4);}
+.hs-lbl{font-size:0.66rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px;}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:0.58rem;color:var(--text-dim);
+  letter-spacing:0.16em;animation:bounce 2.2s infinite;}
+
+/* ═══════════════════════════════════════════════
+   EXPERT / ABOUT
+═══════════════════════════════════════════════ */
+.expert-grid{display:grid;grid-template-columns:300px 1fr;gap:32px;}
+@media(max-width:860px){.expert-grid{grid-template-columns:1fr;}}
+.expert-card{background:var(--panel2);border:1px solid var(--border);padding:32px;
+  text-align:center;height:fit-content;position:sticky;top:78px;}
+.expert-card::before{content:'';position:absolute;inset:-1px;
+  background:linear-gradient(135deg,rgba(0,200,255,0.1),transparent 50%,rgba(159,95,255,0.06));
+  pointer-events:none;}
+.avatar-ring{width:108px;height:108px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(0,200,255,0.18),rgba(159,95,255,0.18));
+  border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;
+  font-size:2.8rem;margin:0 auto 18px;box-shadow:0 0 28px rgba(0,200,255,0.18);
+  animation:glowPulse 3.5s ease-in-out infinite;}
+.exp-name{font-family:var(--head);font-size:1.5rem;font-weight:700;color:var(--text-bright);margin-bottom:4px;}
+.exp-title{font-family:var(--mono);font-size:0.65rem;color:var(--cyan);
+  letter-spacing:0.13em;margin-bottom:16px;line-height:1.5;}
+.exp-bio{font-size:0.85rem;color:var(--text-dim);line-height:1.8;
+  margin-bottom:18px;text-align:left;font-weight:300;}
+.badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:18px;}
+.badge{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;
+  padding:4px 10px;border:1px solid var(--border);color:var(--text-dim);
+  text-transform:uppercase;border-radius:var(--radius);background:rgba(0,200,255,0.04);}
+.exp-socials{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;}
+.exp-socials a{font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);
+  text-decoration:none;padding:5px 10px;border:1px solid var(--border);
+  transition:all 0.2s;border-radius:var(--radius);}
+.exp-socials a:hover{color:var(--cyan);border-color:var(--border-hot);background:var(--cyan-glow);}
+
+.exp-blocks{display:flex;flex-direction:column;gap:18px;}
+.exp-block{background:var(--panel);border:1px solid var(--border);padding:26px;
+  transition:border-color 0.22s,transform 0.22s;border-radius:var(--radius);}
+.exp-block:hover{border-color:var(--border-hot);transform:translateY(-2px);}
+.eb-head{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.eb-ico{font-size:1.7rem;min-width:34px;}
+.eb-title{font-family:var(--head);font-size:1.05rem;font-weight:700;
+  color:var(--text-bright);letter-spacing:0.03em;}
+.eb-sub{font-family:var(--mono);font-size:0.6rem;color:var(--cyan);
+  letter-spacing:0.1em;margin-top:2px;}
+.eb-body{font-size:0.86rem;line-height:1.8;color:var(--text-dim);font-weight:300;}
+.eb-body ul{list-style:none;margin-top:10px;}
+.eb-body ul li{padding:4px 0 4px 18px;position:relative;color:var(--text);font-size:0.85rem;}
+.eb-body ul li::before{content:'›';position:absolute;left:0;color:var(--cyan);font-family:var(--mono);}
+.ach-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:14px;}
+.ach{background:rgba(0,200,255,0.04);border:1px solid var(--border);
+  padding:14px 10px;text-align:center;border-radius:var(--radius);}
+.ach-n{font-family:var(--mono);font-size:1.4rem;color:var(--cyan);
+  display:block;text-shadow:0 0 12px rgba(0,200,255,0.3);}
+.ach-l{font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;
+  letter-spacing:0.06em;margin-top:3px;}
+
+/* ═══════════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════════ */
+.svcs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;}
+.svc{background:var(--panel);border:1px solid var(--border);padding:26px;
+  position:relative;overflow:hidden;transition:all 0.24s;border-radius:var(--radius);}
+.svc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
+.svc:hover{border-color:var(--border-hot);transform:translateY(-4px);box-shadow:var(--shadow);}
+.svc:hover::before{transform:scaleX(1);}
+.svc-ico{font-size:2rem;margin-bottom:13px;display:block;}
+.svc-title{font-family:var(--head);font-size:1.04rem;font-weight:700;
+  color:var(--text-bright);margin-bottom:7px;letter-spacing:0.03em;}
+.svc-body{font-size:0.83rem;color:var(--text-dim);line-height:1.72;
+  font-weight:300;margin-bottom:14px;}
+.svc-tag{font-family:var(--mono);font-size:0.6rem;color:var(--green);
+  letter-spacing:0.1em;border:1px solid rgba(0,232,122,0.22);
+  padding:3px 10px;display:inline-block;border-radius:var(--radius);}
+.svc-cta{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;}
+.btn-sm{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;
+  text-transform:uppercase;padding:7px 14px;border:1px solid var(--border);
+  background:transparent;color:var(--text-dim);cursor:pointer;
+  transition:all 0.2s;text-decoration:none;border-radius:var(--radius);}
+.btn-sm:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-glow);}
+
+/* ═══════════════════════════════════════════════
+   SCAM ALERTS TICKER IS ABOVE
+   SCAMS SECTION
+═══════════════════════════════════════════════ */
+.scam-filter{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:26px;justify-content:center;}
+.sf-btn{font-family:var(--mono);font-size:0.63rem;letter-spacing:0.1em;
+  padding:6px 16px;background:transparent;border:1px solid var(--border);
+  color:var(--text-dim);cursor:pointer;text-transform:uppercase;
+  transition:all 0.2s;border-radius:var(--radius);}
+.sf-btn.on,.sf-btn:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-glow);}
+.scams-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+.sc{background:var(--panel);border:1px solid rgba(255,61,61,0.18);padding:22px;
+  transition:all 0.24s;position:relative;overflow:hidden;border-radius:var(--radius);}
+.sc:hover{border-color:rgba(255,61,61,0.45);transform:translateY(-3px);
+  box-shadow:0 10px 32px rgba(255,61,61,0.08);}
+.sc::after{content:'⚠';position:absolute;top:10px;right:14px;
+  font-size:0.85rem;color:rgba(255,61,61,0.25);}
+.sc-langs{display:flex;gap:5px;margin-bottom:9px;}
+.pill{font-family:var(--mono);font-size:0.52rem;letter-spacing:0.1em;
+  padding:2px 7px;text-transform:uppercase;border-radius:2px;}
+.p-hi{background:rgba(255,179,0,0.1);color:#ffaa00;border:1px solid rgba(255,179,0,0.25);}
+.p-hg{background:rgba(0,200,255,0.07);color:var(--cyan);border:1px solid rgba(0,200,255,0.2);}
+.p-en{background:rgba(159,95,255,0.07);color:var(--purple);border:1px solid rgba(159,95,255,0.2);}
+.sc-name{font-family:var(--head);font-size:1rem;font-weight:700;
+  color:var(--text-bright);margin-bottom:5px;}
+.sc-hi{font-size:0.96rem;color:var(--amber);margin-bottom:5px;line-height:1.55;}
+.sc-hg{font-size:0.83rem;color:var(--text-dim);margin-bottom:9px;
+  line-height:1.6;font-style:italic;}
+.sc-warn{background:rgba(255,61,61,0.06);border-left:2px solid var(--red);
+  padding:8px 12px;font-size:0.78rem;color:var(--red-dim);line-height:1.55;margin-bottom:8px;}
+.sc-warn strong{color:var(--red);font-style:normal;display:block;margin-bottom:2px;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;}
+.sc-safe{background:rgba(0,232,122,0.04);border-left:2px solid var(--green);
+  padding:8px 12px;font-size:0.78rem;color:var(--green-dim);line-height:1.55;}
+.sc-safe strong{display:block;font-family:var(--mono);font-size:0.58rem;
+  color:var(--green);letter-spacing:0.08em;margin-bottom:2px;}
+
+/* ═══════════════════════════════════════════════
+   FRAUD CASES
+═══════════════════════════════════════════════ */
+.frauds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;}
+.fraud{background:var(--panel);border:1px solid rgba(255,107,26,0.22);
+  overflow:hidden;transition:all 0.24s;border-radius:var(--radius);}
+.fraud:hover{border-color:rgba(255,107,26,0.5);transform:translateY(-3px);}
+.fraud-hdr{background:linear-gradient(135deg,rgba(255,61,61,0.1),rgba(255,107,26,0.06));
+  padding:16px 20px;border-bottom:1px solid rgba(255,107,26,0.12);
+  display:flex;align-items:center;gap:12px;}
+.fraud-ico{font-size:1.6rem;}
+.fh-type{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;
+  color:var(--orange);text-transform:uppercase;margin-bottom:2px;}
+.fh-title{font-family:var(--head);font-size:1rem;font-weight:700;color:var(--text-bright);}
+.fraud-body{padding:18px 20px;}
+.fraud-story{font-size:0.85rem;color:var(--text-dim);line-height:1.78;
+  font-weight:300;margin-bottom:12px;}
+.rf-title{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;
+  color:var(--red);text-transform:uppercase;margin-bottom:7px;}
+.rf-item{display:flex;align-items:flex-start;gap:8px;font-size:0.79rem;
+  color:var(--text-dim);margin-bottom:5px;line-height:1.5;}
+.rf-item::before{content:'✗';color:var(--red);font-family:var(--mono);min-width:14px;}
+.fraud-action{background:rgba(0,200,255,0.05);border:1px solid rgba(0,200,255,0.12);
+  padding:9px 13px;font-family:var(--mono);font-size:0.7rem;
+  color:var(--cyan);letter-spacing:0.05em;margin-top:10px;border-radius:var(--radius);}
+
+/* ═══════════════════════════════════════════════
+   REPORTING STEPS
+═══════════════════════════════════════════════ */
+.sos-banner{background:rgba(255,61,61,0.07);border:1px solid rgba(255,61,61,0.28);
+  padding:18px 24px;margin-bottom:36px;display:flex;align-items:center;
+  gap:16px;border-radius:var(--radius);}
+.sos-banner .big-num{font-family:var(--mono);font-size:2.2rem;color:var(--red);
+  font-weight:700;text-shadow:0 0 16px rgba(255,61,61,0.4);min-width:80px;}
+.report-flow{display:flex;flex-direction:column;gap:0;position:relative;margin-bottom:44px;}
+.report-flow::before{content:'';position:absolute;left:27px;top:0;bottom:0;
+  width:1px;background:linear-gradient(180deg,var(--red),var(--cyan),var(--green),transparent);}
+.rs{display:flex;gap:22px;padding:16px 0;}
+.step-circ{width:54px;height:54px;min-width:54px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:0.88rem;font-weight:700;position:relative;z-index:1;}
+.sc-urg{background:linear-gradient(135deg,rgba(255,61,61,0.22),rgba(255,61,61,0.08));
+  border:2px solid var(--red);color:var(--red);}
+.sc-act{background:linear-gradient(135deg,rgba(0,200,255,0.18),rgba(0,200,255,0.06));
+  border:2px solid var(--cyan);color:var(--cyan);}
+.sc-ok{background:linear-gradient(135deg,rgba(0,232,122,0.14),rgba(0,232,122,0.05));
+  border:2px solid var(--green);color:var(--green);}
+.rs-body{background:var(--panel);border:1px solid var(--border);padding:16px 20px;
+  flex:1;transition:border-color 0.22s;border-radius:var(--radius);}
+.rs-body:hover{border-color:var(--border-hot);}
+.rs-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;flex-wrap:wrap;gap:6px;}
+.rs-title{font-family:var(--head);font-size:1rem;font-weight:700;
+  color:var(--text-bright);letter-spacing:0.02em;}
+.rs-time{font-family:var(--mono);font-size:0.6rem;color:var(--red);
+  border:1px solid rgba(255,61,61,0.28);padding:2px 8px;
+  background:rgba(255,61,61,0.05);border-radius:2px;}
+.rs-text{font-size:0.85rem;color:var(--text-dim);line-height:1.72;font-weight:300;}
+.rs-text strong{color:var(--cyan);}
+.portals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;}
+.portal{background:var(--panel);border:1px solid var(--border);padding:16px 18px;
+  display:flex;align-items:center;gap:14px;text-decoration:none;
+  transition:all 0.22s;border-radius:var(--radius);}
+.portal:hover{border-color:var(--border-hot);transform:translateX(4px);}
+.portal-ico{font-size:1.7rem;min-width:36px;}
+.p-name{font-family:var(--head);font-size:0.95rem;font-weight:700;
+  color:var(--text-bright);margin-bottom:2px;}
+.p-url{font-family:var(--mono);font-size:0.65rem;color:var(--cyan);letter-spacing:0.05em;}
+
+/* ═══════════════════════════════════════════════
+   LAWS / TABS
+═══════════════════════════════════════════════ */
+.tab-bar{display:flex;overflow-x:auto;border-bottom:1px solid var(--border);scrollbar-width:none;}
+.tab-bar::-webkit-scrollbar{display:none;}
+.tab-btn{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;
+  color:var(--text-dim);background:transparent;border:none;
+  border-bottom:2px solid transparent;padding:14px 22px;cursor:pointer;
+  transition:all 0.2s;white-space:nowrap;text-transform:uppercase;}
+.tab-btn:hover{color:var(--cyan);background:var(--cyan-glow);}
+.tab-btn.on{color:var(--cyan);border-bottom-color:var(--cyan);background:var(--cyan-glow);}
+.tab-c{display:none;padding:32px 0;}
+.tab-c.on{display:block;}
+.law-lay{display:grid;grid-template-columns:250px 1fr;gap:24px;}
+@media(max-width:740px){.law-lay{grid-template-columns:1fr;}}
+.law-side{background:var(--panel);border:1px solid var(--border);padding:22px;
+  position:sticky;top:78px;height:fit-content;border-radius:var(--radius);}
+.l-badge{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;
+  padding:3px 10px;border:1px solid;display:inline-block;margin-bottom:11px;border-radius:2px;}
+.lb-c{color:var(--cyan);border-color:rgba(0,200,255,0.38);background:rgba(0,200,255,0.05);}
+.lb-g{color:var(--green);border-color:rgba(0,232,122,0.38);background:rgba(0,232,122,0.05);}
+.lb-a{color:var(--amber);border-color:rgba(255,179,0,0.38);background:rgba(255,179,0,0.05);}
+.law-side h3{font-family:var(--head);font-size:1.08rem;color:var(--text-bright);
+  margin-bottom:5px;font-weight:600;}
+.law-yr{font-family:var(--mono);font-size:0.63rem;color:var(--text-dim);margin-bottom:11px;}
+.law-side p{font-size:0.82rem;line-height:1.72;color:var(--text-dim);
+  border-top:1px solid var(--border);padding-top:11px;font-weight:300;}
+.qf{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+.qf-t{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.14em;
+  color:var(--text-dim);text-transform:uppercase;margin-bottom:9px;}
+.qi{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.03);font-size:0.78rem;}
+.qi .ql{color:var(--text-dim);}
+.qi .qv{font-family:var(--mono);color:var(--cyan);font-size:0.7rem;}
+
+/* Accordion */
+.acc{display:flex;flex-direction:column;gap:5px;}
+.ai{border:1px solid var(--border);background:var(--panel);
+  transition:border-color 0.2s;border-radius:var(--radius);}
+.ai:hover{border-color:var(--border-hot);}
+.ah{display:flex;align-items:center;justify-content:space-between;
+  padding:15px 18px;cursor:pointer;gap:10px;}
+.an{font-family:var(--mono);font-size:0.66rem;color:var(--cyan);min-width:34px;opacity:0.6;}
+.at{font-family:var(--head);font-size:0.95rem;font-weight:600;
+  color:var(--text-bright);flex:1;letter-spacing:0.02em;}
+.as{font-size:0.73rem;color:var(--text-dim);font-weight:300;}
+.arr{color:var(--cyan);font-size:0.95rem;transition:transform 0.28s;
+  font-family:var(--mono);min-width:16px;text-align:center;}
+.ai.op .arr{transform:rotate(90deg);}
+.ab{max-height:0;overflow:hidden;transition:max-height 0.38s ease,padding 0.28s;padding:0 18px;}
+.ai.op .ab{max-height:600px;padding:0 18px 18px;}
+.ab-in{border-top:1px solid var(--border);padding-top:14px;}
+.ab-in p{font-size:0.84rem;line-height:1.78;color:var(--text);font-weight:300;margin-bottom:9px;}
+.ab-in ul{list-style:none;margin:9px 0;}
+.ab-in ul li{font-size:0.82rem;color:var(--text);padding:3px 0 3px 16px;
+  position:relative;line-height:1.58;font-weight:300;}
+.ab-in ul li::before{content:'›';position:absolute;left:0;color:var(--cyan);font-family:var(--mono);}
+.pen{background:rgba(255,61,61,0.06);border:1px solid rgba(255,61,61,0.2);
+  padding:10px 14px;margin-top:10px;font-family:var(--mono);font-size:0.72rem;
+  color:var(--red);letter-spacing:0.04em;line-height:1.55;border-radius:var(--radius);}
+.pen-lbl{font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:rgba(255,61,61,0.58);margin-bottom:4px;display:block;}
+
+/* ═══════════════════════════════════════════════
+   CASE LAWS
+═══════════════════════════════════════════════ */
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px;}
+.case{background:var(--panel);border:1px solid var(--border);padding:22px;
+  transition:all 0.24s;position:relative;overflow:hidden;border-radius:var(--radius);}
+.case::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
+.case:hover{border-color:var(--border-hot);transform:translateY(-2px);}
+.case:hover::before{transform:scaleX(1);}
+.c-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.13em;
+  color:var(--amber);text-transform:uppercase;margin-bottom:9px;display:flex;align-items:center;gap:5px;}
+.c-tag::before{content:'§';opacity:0.5;}
+.c-name{font-family:var(--head);font-size:0.98rem;font-weight:700;
+  color:var(--text-bright);margin-bottom:4px;line-height:1.28;}
+.c-cite{font-family:var(--mono);font-size:0.65rem;color:var(--cyan-dim);
+  margin-bottom:11px;letter-spacing:0.04em;}
+.c-body{font-size:0.82rem;line-height:1.72;color:var(--text-dim);
+  font-weight:300;margin-bottom:10px;}
+.c-held{background:rgba(0,232,122,0.04);border-left:2px solid var(--green);
+  padding:8px 11px;font-size:0.79rem;color:var(--green-dim);
+  font-style:italic;line-height:1.55;}
+.c-held strong{color:var(--green);font-style:normal;font-family:var(--mono);
+  font-size:0.62rem;letter-spacing:0.1em;display:block;margin-bottom:3px;}
+
+/* ═══════════════════════════════════════════════
+   HINDI
+═══════════════════════════════════════════════ */
+.hi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:16px;}
+.hi-card{background:var(--panel);border:1px solid var(--border);padding:24px;
+  transition:border-color 0.22s;position:relative;overflow:hidden;border-radius:var(--radius);}
+.hi-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+  background:linear-gradient(180deg,var(--cyan),var(--purple));}
+.hi-card:hover{border-color:var(--border-hot);}
+.hi-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;
+  color:var(--amber);margin-bottom:8px;display:block;text-transform:uppercase;}
+.hi-h{font-family:var(--head);font-size:1rem;font-weight:700;
+  color:var(--cyan);margin-bottom:8px;}
+.hi-t{font-size:0.95rem;line-height:1.88;color:var(--text);font-weight:300;}
+.hi-pen{background:rgba(255,61,61,0.05);border:1px solid rgba(255,61,61,0.18);
+  padding:8px 11px;margin-top:10px;font-size:0.82rem;color:var(--red-dim);line-height:1.55;
+  border-radius:var(--radius);}
+
+/* ═══════════════════════════════════════════════
+   TIPS
+═══════════════════════════════════════════════ */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.tip{background:var(--panel);border:1px solid var(--border);padding:24px;
+  transition:all 0.22s;border-radius:var(--radius);}
+.tip:hover{border-color:var(--border-hot);box-shadow:0 0 18px rgba(0,200,255,0.05);}
+.tip-ico{font-size:1.8rem;margin-bottom:11px;display:block;}
+.tip-t{font-family:var(--head);font-size:1rem;font-weight:600;
+  color:var(--text-bright);margin-bottom:7px;}
+.tip-b{font-size:0.82rem;line-height:1.7;color:var(--text-dim);font-weight:300;}
+
+/* ═══════════════════════════════════════════════
+   QUIZ
+═══════════════════════════════════════════════ */
+.quiz-wrap{max-width:680px;margin:0 auto;}
+.qcard{background:var(--panel);border:1px solid var(--border);padding:32px;border-radius:var(--radius);}
+.q-prog{display:flex;align-items:center;gap:13px;margin-bottom:26px;}
+.q-bar{flex:1;height:2px;background:rgba(0,200,255,0.1);border-radius:2px;overflow:hidden;}
+.q-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width 0.4s ease;}
+.q-txt{font-family:var(--mono);font-size:0.66rem;color:var(--text-dim);}
+.q-q{font-family:var(--head);font-size:1.1rem;font-weight:600;
+  color:var(--text-bright);margin-bottom:22px;line-height:1.48;}
+.q-opts{display:flex;flex-direction:column;gap:7px;margin-bottom:20px;}
+.q-opt{background:rgba(0,200,255,0.03);border:1px solid var(--border);
+  padding:12px 16px;cursor:pointer;font-family:var(--body);
+  font-size:0.86rem;color:var(--text);text-align:left;transition:all 0.18s;border-radius:var(--radius);}
+.q-opt:hover:not(:disabled){border-color:var(--cyan);background:var(--cyan-glow);color:var(--text-bright);}
+.q-opt.cor{border-color:var(--green);background:rgba(0,232,122,0.08);color:var(--green);}
+.q-opt.wrng{border-color:var(--red);background:rgba(255,61,61,0.08);color:var(--red);}
+.q-opt:disabled{cursor:not-allowed;opacity:0.6;}
+.q-fb{padding:11px 15px;margin-bottom:16px;font-size:0.84rem;line-height:1.6;display:none;border-radius:var(--radius);}
+.q-fb.show{display:block;}
+.cfb{background:rgba(0,232,122,0.06);border:1px solid rgba(0,232,122,0.28);color:var(--green);}
+.wfb{background:rgba(255,61,61,0.06);border:1px solid rgba(255,61,61,0.28);color:var(--red-dim);}
+.q-nav{display:flex;justify-content:flex-end;}
+.btn-nxt{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.13em;text-transform:uppercase;
+  padding:10px 22px;border:1px solid var(--cyan);background:var(--cyan-glow);
+  color:var(--cyan);cursor:pointer;transition:all 0.2s;border-radius:var(--radius);}
+.btn-nxt:hover{background:rgba(0,200,255,0.2);}
+.btn-nxt:disabled{opacity:0.3;cursor:not-allowed;}
+.q-res{text-align:center;padding:14px 0;}
+.score-big{font-family:var(--mono);font-size:3.4rem;color:var(--cyan);
+  text-shadow:0 0 36px rgba(0,200,255,0.45);margin-bottom:10px;display:block;}
+.score-msg{font-family:var(--head);font-size:1.2rem;color:var(--text-bright);
+  margin-bottom:5px;font-weight:600;}
+.score-sub{color:var(--text-dim);font-size:0.86rem;font-weight:300;margin-bottom:22px;}
+
+/* ═══════════════════════════════════════════════
+   SOCIAL PROOF
+═══════════════════════════════════════════════ */
+.test-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;}
+.test{background:var(--panel);border:1px solid var(--border);padding:24px;
+  position:relative;transition:border-color 0.22s;border-radius:var(--radius);}
+.test:hover{border-color:var(--border-hot);}
+.qm{font-family:var(--mono);font-size:2.8rem;color:var(--cyan);opacity:0.12;
+  position:absolute;top:10px;left:16px;line-height:1;}
+.test-txt{font-size:0.87rem;line-height:1.78;color:var(--text);
+  font-style:italic;margin-bottom:16px;padding-top:8px;font-weight:300;}
+.test-auth{display:flex;align-items:center;gap:11px;
+  border-top:1px solid var(--border);padding-top:13px;}
+.t-av{width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(0,200,255,0.18),rgba(159,95,255,0.18));
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.t-nm{font-family:var(--head);font-size:0.88rem;font-weight:600;color:var(--text-bright);}
+.t-rl{font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.05em;}
+.ws-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:13px;margin-top:32px;}
+.wss{background:var(--panel);border:1px solid var(--border);padding:20px;
+  text-align:center;border-radius:var(--radius);}
+.wss-v{font-family:var(--mono);font-size:1.55rem;color:var(--cyan);
+  display:block;text-shadow:0 0 14px rgba(0,200,255,0.3);}
+.wss-l{font-size:0.68rem;color:var(--text-dim);letter-spacing:0.06em;
+  text-transform:uppercase;margin-top:3px;}
+.collabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:26px;}
+.collab{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;
+  color:var(--text-dim);border:1px solid var(--border);
+  padding:7px 14px;text-transform:uppercase;background:rgba(0,200,255,0.03);
+  transition:all 0.2s;border-radius:var(--radius);}
+.collab:hover{border-color:var(--border-hot);color:var(--cyan);}
+
+/* ═══════════════════════════════════════════════
+   HELPLINE
+═══════════════════════════════════════════════ */
+.hl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:13px;}
+.hl{background:var(--panel);border:1px solid var(--border);padding:20px;
+  text-align:center;transition:all 0.22s;border-radius:var(--radius);}
+.hl:hover{border-color:var(--border-hot);}
+.hl-num{font-family:var(--mono);font-size:1.45rem;color:var(--cyan);
+  text-shadow:0 0 16px rgba(0,200,255,0.3);display:block;margin-bottom:5px;}
+.hl-name{font-size:0.8rem;color:var(--text-dim);font-weight:300;}
+.hl-org{font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);opacity:0.4;margin-top:4px;}
+
+/* ═══════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════ */
+.contact-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:26px;}
+@media(max-width:740px){.contact-grid{grid-template-columns:1fr;}}
+.ci-item{background:var(--panel);border:1px solid var(--border);padding:16px 20px;
+  display:flex;align-items:flex-start;gap:13px;margin-bottom:12px;border-radius:var(--radius);}
+.ci-ico{font-size:1.3rem;min-width:26px;}
+.ci-lbl{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.13em;
+  color:var(--text-dim);text-transform:uppercase;margin-bottom:3px;}
+.ci-val{font-size:0.86rem;color:var(--text-bright);}
+.cform{background:var(--panel);border:1px solid var(--border);padding:30px;border-radius:var(--radius);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+@media(max-width:480px){.form-row{grid-template-columns:1fr;}}
+.fg{margin-bottom:14px;}
+.fl{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.13em;
+  color:var(--text-dim);text-transform:uppercase;display:block;margin-bottom:6px;}
+.fi,.fs,.fta{width:100%;background:rgba(0,0,0,0.4);border:1px solid var(--border);
+  color:var(--text);font-family:var(--body);font-size:0.87rem;
+  padding:11px 14px;outline:none;transition:border-color 0.2s;border-radius:var(--radius);}
+.fi::placeholder,.fta::placeholder{color:var(--text-dim);}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--cyan);}
+.fs{appearance:none;cursor:pointer;}
+.fs option{background:#071525;}
+.fta{resize:vertical;min-height:105px;font-family:var(--body);}
+.btn-sub{width:100%;padding:13px;background:linear-gradient(135deg,rgba(0,200,255,0.1),rgba(0,200,255,0.05));
+  border:1px solid var(--cyan);color:var(--cyan);font-family:var(--mono);
+  font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.24s;border-radius:var(--radius);}
+.btn-sub:hover{background:rgba(0,200,255,0.18);box-shadow:0 0 22px rgba(0,200,255,0.1);}
+.f-ok{display:none;background:rgba(0,232,122,0.06);border:1px solid rgba(0,232,122,0.28);
+  padding:13px;text-align:center;color:var(--green);font-family:var(--mono);
+  font-size:0.73rem;letter-spacing:0.08em;margin-top:10px;border-radius:var(--radius);}
+.f-ok.show{display:block;}
+
+/* ═══════════════════════════════════════════════
+   DISCLAIMER
+═══════════════════════════════════════════════ */
+.dis-box{background:rgba(255,179,0,0.04);border:1px solid rgba(255,179,0,0.22);
+  padding:28px;margin-bottom:14px;border-radius:var(--radius);}
+.dis-head{display:flex;align-items:center;gap:11px;margin-bottom:16px;}
+.dis-title{font-family:var(--head);font-size:1.18rem;font-weight:700;color:var(--amber);}
+.dis-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.dis-grid{grid-template-columns:1fr;}}
+.dis-b{border-top:1px solid rgba(255,179,0,0.1);padding-top:13px;}
+.dis-bt{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.13em;
+  color:var(--amber);text-transform:uppercase;margin-bottom:6px;}
+.dis-bd{font-size:0.82rem;line-height:1.72;color:var(--text-dim);font-weight:300;}
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+footer{background:rgba(2,7,14,0.98);border-top:1px solid var(--border);padding:0;}
+.foot-top{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:32px;
+  padding:52px 28px 32px;max-width:1180px;margin:0 auto;
+  border-bottom:1px solid var(--border);}
+@media(max-width:860px){.foot-top{grid-template-columns:1fr 1fr;padding:36px 20px;}}
+@media(max-width:500px){.foot-top{grid-template-columns:1fr;padding:28px 16px;}}
+.fc-title{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.16em;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:13px;}
+.fc p{font-size:0.79rem;line-height:1.78;color:var(--text-dim);font-weight:300;}
+.fc ul{list-style:none;}
+.fc ul li{margin-bottom:7px;}
+.fc ul li a{font-size:0.79rem;color:var(--text-dim);text-decoration:none;
+  transition:color 0.18s;display:flex;align-items:center;gap:5px;}
+.fc ul li a:hover{color:var(--cyan);}
+.fc ul li a::before{content:'›';color:var(--cyan);opacity:0.38;font-family:var(--mono);}
+.foot-btm{display:flex;align-items:center;justify-content:space-between;
+  padding:16px 28px;flex-wrap:wrap;gap:10px;max-width:1180px;margin:0 auto;}
+@media(max-width:500px){.foot-btm{flex-direction:column;text-align:center;padding:14px 16px;}}
+.foot-copy{font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.06em;}
+.social-strip{display:flex;gap:8px;flex-wrap:wrap;}
+.soc-a{font-family:var(--mono);font-size:0.58rem;color:var(--text-dim);
+  text-decoration:none;padding:4px 9px;border:1px solid var(--border);
+  transition:all 0.18s;border-radius:2px;}
+.soc-a:hover{color:var(--cyan);border-color:var(--border-hot);}
+
+/* ═══════════════════════════════════════════════
+   ABOUT SECTION
+═══════════════════════════════════════════════ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+@media(max-width:720px){.about-grid{grid-template-columns:1fr;}}
+.about-card{background:var(--panel);border:1px solid var(--border);padding:26px;
+  transition:border-color 0.22s;border-radius:var(--radius);}
+.about-card:hover{border-color:var(--border-hot);}
+.about-full{grid-column:1/-1;}
+.about-ico{font-size:2rem;margin-bottom:12px;display:block;}
+.about-t{font-family:var(--head);font-size:1.06rem;font-weight:700;
+  color:var(--text-bright);margin-bottom:7px;letter-spacing:0.03em;}
+.about-b{font-size:0.85rem;line-height:1.78;color:var(--text-dim);font-weight:300;}
+.soc-row{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin-top:16px;}
+.soc-btn{display:flex;align-items:center;gap:7px;background:var(--panel);
+  border:1px solid var(--border);color:var(--text-dim);text-decoration:none;
+  padding:9px 16px;font-family:var(--mono);font-size:0.65rem;
+  letter-spacing:0.09em;text-transform:uppercase;transition:all 0.22s;border-radius:var(--radius);}
+.soc-btn:hover{border-color:var(--border-hot);color:var(--cyan);}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media(max-width:900px){
+  .nav-links{display:none;}
+  .ham{display:block;}
+  .fab-report{bottom:68px;right:12px;font-size:0.58rem;padding:10px 12px;}
+  .fab-wa{bottom:68px;left:12px;font-size:0.58rem;padding:10px 12px;}
+  .s-bottom{display:flex;}
+  body{padding-bottom:56px;}
+  .hero{padding-top:130px;}
+  .hero-stats{flex-wrap:wrap;}
+  .hs{border-right:none;border-bottom:1px solid var(--border);width:50%;}
+  .hs:nth-child(odd){border-right:1px solid var(--border);}
+}
+@media(max-width:480px){
+  .cta-row{flex-direction:column;align-items:stretch;}
+  .btn-p,.btn-d,.btn-g{justify-content:center;}
+  .hs{width:100%;border-right:none !important;}
+  .wrap{padding:0 14px 60px;}
+}
+</style>
+</head>
+<body>
+<canvas id="mc"></canvas>
+
+<!-- ── FABs ── -->
+<a href="https://cybercrime.gov.in" target="_blank" class="fab-report">🚨 Report Scam</a>
+<a href="https://wa.me/919876543210?text=Hi%20Shakeel%20Sir%2C%20I%20need%20cyber%20help" target="_blank" class="fab-wa">💬 WhatsApp</a>
+
+<!-- ── STICKY BOTTOM ── -->
+<div class="s-bottom" id="sBottom">
+  <a href="#hero" class="sb-a"><span class="sb-ico">🏠</span>Home</a>
+  <a href="#shakeel" class="sb-a"><span class="sb-ico">👤</span>Expert</a>
+  <a href="#scams" class="sb-a"><span class="sb-ico">⚠️</span>Scams</a>
+  <a href="#report-steps" class="sb-a"><span class="sb-ico">🚨</span>Report</a>
+  <a href="#contact" class="sb-a"><span class="sb-ico">📬</span>Contact</a>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#hero" class="nav-logo"><span class="shield">🛡</span>CyberShield India</a>
+  <div class="nav-links">
+    <a href="#shakeel">Expert</a>
+    <a href="#services">Services</a>
+    <a href="#scams">Scams</a>
+    <a href="#frauds">Cases</a>
+    <a href="#laws">Laws</a>
+    <a href="#hindi">हिंदी</a>
+    <a href="#report-steps">Report</a>
+    <a href="#proof">Proof</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-r">
+    <div class="live-dot">● LIVE</div>
+    <button class="ham" id="ham" onclick="toggleNav()">☰</button>
+  </div>
+</nav>
+
+<!-- ── MOBILE DRAWER ── -->
+<div class="drawer" id="drawer">
+  <a href="#shakeel" onclick="cn()">👤 About Shakeel Anjum</a>
+  <a href="#services" onclick="cn()">🛠 Services</a>
+  <a href="#scams" onclick="cn()">⚠️ Common Scams</a>
+  <a href="#frauds" onclick="cn()">🔴 Real Fraud Cases</a>
+  <a href="#report-steps" onclick="cn()">🚨 How to Report</a>
+  <a href="#laws" onclick="cn()">⚖️ Cyber Laws</a>
+  <a href="#cases" onclick="cn()">📋 Case Laws</a>
+  <a href="#hindi" onclick="cn()">🇮🇳 हिंदी जागरूकता</a>
+  <a href="#quiz" onclick="cn()">🧠 Quiz</a>
+  <a href="#proof" onclick="cn()">🏆 Social Proof</a>
+  <a href="#helpline" onclick="cn()">📞 Helpline</a>
+  <a href="#contact" onclick="cn()">📬 Contact</a>
+  <a href="#disclaimer" onclick="cn()">📄 Disclaimer</a>
+</div>
+
+<!-- ── TICKER ── -->
+<div class="ticker-wrap" style="top:60px">
+  <div class="ticker-label">🔴 SCAM ALERT</div>
+  <div style="padding-left:110px;">
+    <div class="ticker-track">
+      <span class="ticker-item">Digital Arrest Scam — Fake CBI calls demanding money. NO SUCH LAW EXISTS.</span>
+      <span class="ticker-item">AI Voice Cloning Fraud — Scammers clone family voices. Always call back on known number.</span>
+      <span class="ticker-item">Fake Loan App Alert — Apps accessing contacts & blackmailing. Only use RBI-registered lenders.</span>
+      <span class="ticker-item">Telegram Investment Scam — Guaranteed returns groups are ALWAYS fraudulent.</span>
+      <span class="ticker-item">UPI QR Scam — You NEVER scan QR to RECEIVE money. Scanning only SENDS.</span>
+      <span class="ticker-item">Digital Arrest Scam — Fake CBI calls demanding money. NO SUCH LAW EXISTS.</span>
+      <span class="ticker-item">AI Voice Cloning Fraud — Scammers clone family voices. Always call back on known number.</span>
+      <span class="ticker-item">Fake Loan App Alert — Apps accessing contacts & blackmailing. Only use RBI-registered lenders.</span>
+      <span class="ticker-item">Telegram Investment Scam — Guaranteed returns groups are ALWAYS fraudulent.</span>
+      <span class="ticker-item">UPI QR Scam — You NEVER scan QR to RECEIVE money. Scanning only SENDS.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     HERO
+════════════════════════════════════ -->
+<section class="hero z1" id="hero" style="padding-top:140px;">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">// INDIA'S EXPERT-LED CYBER AWARENESS PLATFORM</div>
+  <h1>Cyber Awareness &<br><span>Digital Safety</span><br>for Every Indian</h1>
+  <h2>By <strong>Shakeel Anjum</strong> — Cyber Law Consultant,<br>Cyber Awareness Trainer &amp; Digital Safety Educator</h2>
+  <div class="cta-row">
+    <a href="https://cybercrime.gov.in" target="_blank" class="btn-d">🚨 Report Cyber Crime</a>
+    <a href="#laws" class="btn-p">⚖ Learn Cyber Laws</a>
+    <a href="#contact" class="btn-g">📅 Book Awareness Session</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hs"><span class="hs-val" data-target="15">0</span><div class="hs-lbl">Years Experience</div></div>
+    <div class="hs"><span class="hs-val" data-target="500">0</span><div class="hs-lbl">Workshops</div></div>
+    <div class="hs"><span class="hs-val" data-target="100000">0</span><div class="hs-lbl">Citizens Trained</div></div>
+    <div class="hs"><span class="hs-val" data-target="28">0</span><div class="hs-lbl">States</div></div>
+    <div class="hs"><span class="hs-val" data-target="400">0</span><div class="hs-lbl">Cases Handled</div></div>
+  </div>
+  <div class="scroll-hint">▼ SCROLL TO EXPLORE</div>
+</section>
+
+<!-- ════════════════════════════════════
+     SHAKEEL ANJUM
+════════════════════════════════════ -->
+<section id="shakeel" style="background:linear-gradient(180deg,var(--bg3) 0%,var(--bg) 100%);">
+  <div class="s-head">
+    <span class="s-tag">// MEET THE EXPERT</span>
+    <h2 class="s-title">Shakeel Anjum</h2>
+    <p class="s-desc">Cyber Awareness Trainer · Cyber Law Consultant · Digital Forensic Professional</p>
+  </div>
+  <div class="wrap">
+    <div class="expert-grid">
+      <div class="expert-card" style="position:relative;">
+        <div class="avatar-ring">👨‍💼</div>
+        <div class="exp-name">Shakeel Anjum</div>
+        <div class="exp-title">CYBER FORENSIC EXPERT<br>CYBER LAW CONSULTANT<br>DIGITAL SAFETY EDUCATOR</div>
+        <div class="exp-bio">Shakeel Anjum is a cyber awareness trainer and cyber law consultant based in India, dedicated to educating citizens about online frauds, digital safety, cyber laws, and cybercrime reporting. With 15+ years of hands-on experience, he has transformed the lives of thousands of victims.</div>
+        <div class="badges">
+          <span class="badge">Cyber Forensics</span>
+          <span class="badge">IT Act Expert</span>
+          <span class="badge">DPDP Act</span>
+          <span class="badge">Hindi Awareness</span>
+          <span class="badge">Law Consulting</span>
+          <span class="badge">Social Worker</span>
+        </div>
+        <div class="exp-socials">
+          <a href="#">𝕏 Twitter</a>
+          <a href="#">💼 LinkedIn</a>
+          <a href="#">▶ YouTube</a>
+          <a href="#">💬 Telegram</a>
+        </div>
+      </div>
+      <div class="exp-blocks">
+
+        <div class="exp-block">
+          <div class="eb-head"><span class="eb-ico">🔍</span><div><div class="eb-title">Cyber Forensic Experience</div><div class="eb-sub">15+ YEARS · DIGITAL INVESTIGATION</div></div></div>
+          <div class="eb-body">
+            <p>Over 15 years of deep hands-on cyber forensics experience — collecting, preserving and analysing digital evidence for court proceedings. Worked on hundreds of financial fraud, identity theft, data breach and social media crime cases.</p>
+            <ul>
+              <li>Digital evidence collection, preservation & chain of custody management</li>
+              <li>Mobile forensics — deleted data extraction from smartphones</li>
+              <li>Email header analysis for phishing and fraud tracing</li>
+              <li>IP tracing, dark web investigations & cryptocurrency fraud analysis</li>
+              <li>Expert witness testimony in cybercrime court proceedings</li>
+              <li>Tools: Cellebrite UFED, FTK, Autopsy, Maltego, OSINT frameworks</li>
+            </ul>
+            <div class="ach-row">
+              <div class="ach"><span class="ach-n">400+</span><div class="ach-l">Cases Solved</div></div>
+              <div class="ach"><span class="ach-n">95%</span><div class="ach-l">Success Rate</div></div>
+              <div class="ach"><span class="ach-n">20+</span><div class="ach-l">Agency Partners</div></div>
+              <div class="ach"><span class="ach-n">15+</span><div class="ach-l">Yrs Experience</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-block">
+          <div class="eb-head"><span class="eb-ico">⚖️</span><div><div class="eb-title">Cyber Law Consulting</div><div class="eb-sub">IT ACT · DPDP ACT · IT RULES SPECIALIST</div></div></div>
+          <div class="eb-body">
+            <p>Recognised cyber law consultant providing expert guidance to individuals, startups, corporates and NGOs. Bridges the gap between complex legal jargon and practical compliance action.</p>
+            <ul>
+              <li>IT Act 2000 & DPDP Act 2023 compliance advisory</li>
+              <li>Data breach response — CERT-In 6-hour reporting obligations</li>
+              <li>Drafting privacy policies, DPAs and terms of service</li>
+              <li>DPDP compliance audits for startups & healthcare platforms</li>
+              <li>Legal opinion for cybercrime FIRs & High Court petitions</li>
+              <li>Section 43A security audits & ISO 27001 compliance roadmaps</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-block">
+          <div class="eb-head"><span class="eb-ico">🎤</span><div><div class="eb-title">Awareness Workshops</div><div class="eb-sub">500+ WORKSHOPS · 28 STATES</div></div></div>
+          <div class="eb-body">
+            <p>Conducted 500+ cyber awareness workshops across 28 Indian states reaching schools, colleges, police departments, corporates, women's groups and rural communities.</p>
+            <ul>
+              <li>School & college digital safety programmes (Std 6 to graduation)</li>
+              <li>Police cyber training — investigation procedures & digital evidence</li>
+              <li>Corporate phishing simulation & DPDP compliance training</li>
+              <li>Women's cyber safety — harassment, sextortion, Section 66E IT Act</li>
+              <li>Senior citizen training — UPI fraud, fake customer care, lottery scams</li>
+              <li>Rural community awareness in Hindi, Urdu & Bhojpuri</li>
+            </ul>
+            <div class="ach-row">
+              <div class="ach"><span class="ach-n">500+</span><div class="ach-l">Workshops</div></div>
+              <div class="ach"><span class="ach-n">1L+</span><div class="ach-l">Trained</div></div>
+              <div class="ach"><span class="ach-n">28</span><div class="ach-l">States</div></div>
+              <div class="ach"><span class="ach-n">6</span><div class="ach-l">Languages</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-block">
+          <div class="eb-head"><span class="eb-ico">🇮🇳</span><div><div class="eb-title">Hindi Awareness Mission</div><div class="eb-sub">MAKING CYBER SAFETY ACCESSIBLE IN HINDI</div></div></div>
+          <div class="eb-body">
+            <p>Shakeel Anjum pioneered Hindi-language cyber awareness content, recognising that most fraud victims in India speak Hindi or regional languages — yet all official material was in English only.</p>
+            <ul>
+              <li>Hindi YouTube series on cyber fraud awareness (50,000+ subscribers)</li>
+              <li>Hindi cybersecurity guides distributed across UP, Bihar, MP, Rajasthan</li>
+              <li>Regular Hindi expert on Doordarshan & community radio programmes</li>
+              <li>Hinglish awareness content on WhatsApp & Telegram reaching rural populations</li>
+              <li>Partnership with state police cyber cells for Hindi victim support materials</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-block">
+          <div class="eb-head"><span class="eb-ico">🤝</span><div><div class="eb-title">Social Awareness Work</div><div class="eb-sub">COMMUNITY IMPACT & VICTIM SUPPORT</div></div></div>
+          <div class="eb-body">
+            <p>Beyond professional consulting, Shakeel Anjum runs a free helpline for cybercrime victims, helping hundreds recover funds, and collaborates with NGOs and government bodies for systemic change.</p>
+            <ul>
+              <li>Free cybercrime victim support — guidance on FIR filing & fund recovery</li>
+              <li>Collaboration with NCW on cyber safety for women</li>
+              <li>MHA & state police advisory panels — cybercrime response policy</li>
+              <li>Free legal aid workshops in rural areas</li>
+              <li>Annual "Cyber Suraksha Mela" in Tier 2 & Tier 3 cities</li>
+              <li>Volunteer "Cyber Mitra" programme for college students</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     SERVICES
+════════════════════════════════════ -->
+<section id="services" style="background:var(--bg2);">
+  <div class="s-head">
+    <span class="s-tag">// WHAT WE OFFER</span>
+    <h2 class="s-title">Our Services</h2>
+    <p class="s-desc">Professional cyber awareness & legal consulting for citizens, students, organisations and law enforcement.</p>
+  </div>
+  <div class="wrap">
+    <div class="svcs-grid">
+      <div class="svc"><span class="svc-ico">🎓</span><div class="svc-title">Cyber Awareness Workshops</div><div class="svc-body">Interactive workshops on online safety, scam identification and cybercrime reporting. Available online and offline, in Hindi and English, across all 28 states.</div><span class="svc-tag">✓ Hindi & English</span><div class="svc-cta"><a href="#contact" class="btn-sm">Book Workshop</a><a href="https://wa.me/919876543210" target="_blank" class="btn-sm">💬 WhatsApp</a></div></div>
+      <div class="svc"><span class="svc-ico">⚖️</span><div class="svc-title">Cyber Law Consultation</div><div class="svc-body">One-on-one & organisational consulting on IT Act 2000, DPDP Act 2023 & IT Rules 2021. Compliance audits, legal opinions and FIR guidance for victims and businesses.</div><span class="svc-tag">✓ DPDP Compliant</span><div class="svc-cta"><a href="#contact" class="btn-sm">Consult Now</a></div></div>
+      <div class="svc"><span class="svc-ico">🔒</span><div class="svc-title">Digital Safety Sessions</div><div class="svc-body">Hands-on training on password security, two-factor authentication, phishing detection, social media privacy and mobile device security.</div><span class="svc-tag">✓ Practical Demos</span><div class="svc-cta"><a href="#contact" class="btn-sm">Book Session</a></div></div>
+      <div class="svc"><span class="svc-ico">📱</span><div class="svc-title">Social Media Scam Awareness</div><div class="svc-body">Dedicated sessions on Facebook fraud, WhatsApp hacking, Telegram investment scams, fake profiles and digital sextortion — with legal remedies.</div><span class="svc-tag">✓ Platform-Specific</span><div class="svc-cta"><a href="#contact" class="btn-sm">Enquire</a></div></div>
+      <div class="svc"><span class="svc-ico">🏫</span><div class="svc-title">School/College Programmes</div><div class="svc-body">Age-appropriate cyber safety curriculum for Std 6 to graduation — cyberbullying, fake news, CSAM awareness, digital footprint. NEP 2020 aligned.</div><span class="svc-tag">✓ CBSE & State Board</span><div class="svc-cta"><a href="#contact" class="btn-sm">Book for School</a></div></div>
+      <div class="svc"><span class="svc-ico">🏢</span><div class="svc-title">Corporate Awareness Training</div><div class="svc-body">Employee security awareness — phishing simulation, ransomware response, BYOD policies, DPDP compliance & insider threat awareness. Certified training available.</div><span class="svc-tag">✓ ISO 27001 Aligned</span><div class="svc-cta"><a href="#contact" class="btn-sm">Corporate Enquiry</a></div></div>
+      <div class="svc"><span class="svc-ico">👮</span><div class="svc-title">Police & LEA Training</div><div class="svc-body">Cyber investigation training for police officers & law enforcement — digital evidence collection, forensics tools, MLAT procedures and court presentation of digital evidence.</div><span class="svc-tag">✓ State Police Empanelled</span><div class="svc-cta"><a href="#contact" class="btn-sm">Enquire</a></div></div>
+      <div class="svc"><span class="svc-ico">👩</span><div class="svc-title">Women's Cyber Safety</div><div class="svc-body">Targeted workshops on online harassment, morphed photos, sextortion, cyber matrimonial fraud and safe digital banking. Available in Hindi and regional languages.</div><span class="svc-tag">✓ NCW Collaborated</span><div class="svc-cta"><a href="#contact" class="btn-sm">Book Workshop</a></div></div>
+      <div class="svc"><span class="svc-ico">📣</span><div class="svc-title">Cyber Fraud Awareness Campaigns</div><div class="svc-body">End-to-end public awareness campaigns for government bodies, NGOs and corporates — content creation, on-ground events, social media and Hindi-medium outreach.</div><span class="svc-tag">✓ Pan-India Reach</span><div class="svc-cta"><a href="#contact" class="btn-sm">Campaign Enquiry</a></div></div>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="#contact" class="btn-p">📬 &nbsp; Book a Session or Consultation</a>
+      &nbsp;&nbsp;
+      <a href="https://wa.me/919876543210?text=Hi%20Shakeel%20Sir%2C%20I%20want%20to%20book%20a%20session" target="_blank" class="btn-g">💬 &nbsp; WhatsApp Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     COMMON SCAMS
+════════════════════════════════════ -->
+<section id="scams" style="background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);">
+  <div class="s-head">
+    <span class="s-tag">// BEWARE — STAY INFORMED</span>
+    <h2 class="s-title">Common Scams in India</h2>
+    <p class="s-desc">Sabse zyada hone wale cyber frauds — Hindi, Hinglish aur English mein samjhein. Apno ko share karein.</p>
+  </div>
+  <div class="wrap">
+    <div class="scam-filter">
+      <button class="sf-btn on" onclick="filterS('all',this)">All</button>
+      <button class="sf-btn" onclick="filterS('fin',this)">Financial</button>
+      <button class="sf-btn" onclick="filterS('mob',this)">Mobile/App</button>
+      <button class="sf-btn" onclick="filterS('soc',this)">Social Media</button>
+      <button class="sf-btn" onclick="filterS('id',this)">Identity</button>
+    </div>
+    <div class="scams-grid" id="scamsGrid">
+
+      <div class="sc" data-c="fin">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">💸 OTP Fraud / OTP ठगी</div>
+        <div class="sc-hi">🔴 "Sir, aapka account band hoga — OTP batao ABHI!"</div>
+        <div class="sc-hg">Bank ya UIDAI ke naam se call. "KYC expire" bol ke daraaate hain. OTP dete hi account saaf.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>Urgency create karna. Bank kabhi OTP phone par nahin maangta.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>OTP kisi ko na batao — bank ko bhi nahin. Call aaye to rakho aur official number se callback karo.</div>
+      </div>
+
+      <div class="sc" data-c="mob">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">📲 Fake Loan App Fraud</div>
+        <div class="sc-hi">🔴 "तुरंत लोन — कोई document नहीं, कोई CIBIL नहीं!"</div>
+        <div class="sc-hg">Fake app install karaate hain. Contacts, photos access lete hain. Chhoti loan deke harassment — family ko morphed photos ki dhamki.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>Play Store se bahar APK, zyada permissions, 1 din mein loan — sab fraud ke signs.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>Sirf RBI registered lenders. App permissions check karo. Harassment ho to 1930 call karo turant.</div>
+      </div>
+
+      <div class="sc" data-c="soc">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">📈 Telegram Investment Scam</div>
+        <div class="sc-hi">🔴 "हमारे group join करो — रोज़ ₹5000 Guaranteed!"</div>
+        <div class="sc-hg">Stock tips group mein add karte hain. Pehle chhota profit dikhate hain (fake dashboard). Phir bada invest karaate hain — gaayab.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>Guaranteed returns, SEBI registered nahin, Telegram/WhatsApp group, withdrawal blocked.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>SEBI.gov.in par verify karo. Guaranteed returns = guaranteed fraud. Sirf registered broker use karo.</div>
+      </div>
+
+      <div class="sc" data-c="fin">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">📱 UPI / QR Code Scam</div>
+        <div class="sc-hi">🔴 "QR scan karo — ₹1000 aapke account mein aayenge!"</div>
+        <div class="sc-hg">QR scan karne se money receive nahin hoti — send hoti hai. Ya payment request bhejte hain jo log confuse hokar approve kar dete hain.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>Paisa RECEIVE karne ke liye QR scan ya PIN ki zaroorat NAHIN hoti. Kabhi nahin.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>QR sirf pay karne ke liye. PIN sirf deney ke liye. Receive karne mein kuch nahin karna hota.</div>
+      </div>
+
+      <div class="sc" data-c="id">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">🪪 KYC Update Fraud</div>
+        <div class="sc-hi">🔴 "KYC expire — अभी update करें नहीं तो account बंद!"</div>
+        <div class="sc-hg">SMS ya email aata hai ki bank/telecom KYC expire hua. Link pe click karaate hain. Aadhaar, PAN, OTP sab le lete hain.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>SMS mein link bhej kar bank KYC update nahin karaata. Official app ya branch hamesha.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>Links par click na karo. Bank number Google par mat dhoondo — card ke peeche se lo ya official site se.</div>
+      </div>
+
+      <div class="sc" data-c="soc">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">💚 WhatsApp Hacking</div>
+        <div class="sc-hi">🔴 "Bhai galti se code chala gaya — OTP forward karo!"</div>
+        <div class="sc-hg">Dost ke number se message. WhatsApp verification OTP maangta hai. Dete hi aapka WhatsApp hack. Phir aapke contacts se paise maangta hai.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>WhatsApp ka 6-digit code KISI ko nahin dena — chahe close dost bhi ho.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>Two-Step Verification on karo. OTP share nahin karo. Hack ho to cybercrime.gov.in par report karo.</div>
+      </div>
+
+      <div class="sc" data-c="mob">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">🖥 Fake APK / Screen Share Scam</div>
+        <div class="sc-hi">🔴 "Ye app install karo — problem 5 minutes mein solve!"</div>
+        <div class="sc-hg">Fake customer care ka Google number milta hai. AnyDesk/TeamViewer install karaate hain. Screen share se seedha banking app kholke transaction kar lete hain.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>Koi bhi bank remote access app install karaane ko nahin kehta. Kabhi nahin.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>Screen access kisi ko mat do. Bank number sirf card ke peeche ya official website se lo.</div>
+      </div>
+
+      <div class="sc" data-c="id">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">📡 SIM Swap Fraud</div>
+        <div class="sc-hi">🔴 अचानक mobile network चला जाता है — कुछ घंटों में account खाली!</div>
+        <div class="sc-hg">Thug pehle personal info collect karta hai. Phir telecom store mein fake ID se duplicate SIM leta hai. Sab OTPs uske phone par aate hain.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>Network achanak band ho jaaye — turant bank call karo aur account freeze karo.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>Telecom mein SIM change ke liye biometric ensure karo. Bank mein SIM change alert activate karo.</div>
+      </div>
+
+      <div class="sc" data-c="fin">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">📦 Digital Arrest / Parcel Scam</div>
+        <div class="sc-hi">🔴 "Sir, parcel mein drugs — CBI arrest karega! Abhi ₹50,000 bhejo!"</div>
+        <div class="sc-hg">FedEx/Customs/Police ke naam se call. Video call par uniform mein bithate hain. Ghanton tak "Digital Arrest" mein rakh ke lakhs thag lete hain.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>"Digital Arrest" exist hi nahin karta. Police phone par arrest nahin karti. Paise nahin maangti.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>Call turant kaato. 1930 call karo. PM Modi ne bhi is fraud ko publicly warn kiya hai.</div>
+      </div>
+
+      <div class="sc" data-c="soc">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">🤖 AI Voice Cloning Scam</div>
+        <div class="sc-hi">🔴 "Beta, accident ho gaya — ₹50,000 ABHI bhejo!"</div>
+        <div class="sc-hg">AI se family member ki voice clone karte hain — sirf 3 second se. Phone karte hain "emergency" bol ke. Paisa transfer karo, tab pata chalta hai.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>Familiar voice but unknown number. "Transfer karo, explain later." Third party account.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>Hamesha us insaan ke known number par callback karo pehle. AI voice clone kar sakta hai, identity verify nahin.</div>
+      </div>
+
+      <div class="sc" data-c="fin">
+        <div class="sc-langs"><span class="pill p-hi">हिंदी</span><span class="pill p-hg">Hinglish</span></div>
+        <div class="sc-name">💼 Fake Job / Task Fraud</div>
+        <div class="sc-hi">🔴 "WFH job — Google reviews rate karo, ₹500 per task!"</div>
+        <div class="sc-hg">Pehle tasks actually pay karte hain. Phir "premium tasks unlock" ke liye deposit maango. ₹10K bante ₹1L — phir manager gaayab.</div>
+        <div class="sc-warn"><strong>⚠ RED FLAGS</strong>Telegram/WhatsApp job offer, koi interview nahin, pehle deposit karo — 100% fraud.</div>
+        <div class="sc-safe"><strong>✓ BACHAV</strong>Legitimate jobs KABHI pehle deposit nahin maangti. MCA portal par company verify karo.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     REAL FRAUD CASES
+════════════════════════════════════ -->
+<section id="frauds" style="background:var(--bg3);">
+  <div class="s-head">
+    <span class="s-tag">// REAL STORIES — REAL WARNINGS</span>
+    <h2 class="s-title">Recent Real-World Cyber Frauds</h2>
+    <p class="s-desc">Ye real fraud patterns hain jो India mein hue. Names changed for privacy. Indicators seekhein — trap mein mat aana.</p>
+  </div>
+  <div class="wrap">
+    <div class="frauds-grid">
+
+      <div class="fraud">
+        <div class="fraud-hdr"><span class="fraud-ico">📞</span><div><div class="fh-type">Voice Scam · Lucknow 2024</div><div class="fh-title">Fake Bank Customer Care — ₹2.8 Lakh Lost</div></div></div>
+        <div class="fraud-body">
+          <div class="fraud-story">A 58-year-old teacher Googled "SBI customer care number." The top result was fake. The fraudster impersonated an SBI executive, asked to "verify account" and walked her through downloading AnyDesk. Within 20 minutes ₹2.8 lakh was gone from her savings account.</div>
+          <div class="rf-title">⚠ SCAM INDICATORS</div>
+          <div class="rf-item">Google search results for bank numbers are frequently manipulated</div>
+          <div class="rf-item">Legitimate banks NEVER ask to install AnyDesk or TeamViewer</div>
+          <div class="rf-item">Creating urgency — "your account blocks in 2 hours"</div>
+          <div class="fraud-action">✓ Bank number only from back of debit card or official bank website — NEVER Google</div>
+        </div>
+      </div>
+
+      <div class="fraud">
+        <div class="fraud-hdr"><span class="fraud-ico">📹</span><div><div class="fh-type">Digital Arrest Scam · Pan India 2024</div><div class="fh-title">Fake CBI Video Call — ₹12 Lakh Lost</div></div></div>
+        <div class="fraud-body">
+          <div class="fraud-story">A retired officer from Pune received a video call from men in police uniforms (fake background). Accused of money laundering. Kept on video call for 36 hours straight, threatening arrest. He transferred ₹12 lakh before his daughter intervened. PM Modi publicly warned about this scam.</div>
+          <div class="rf-title">⚠ SCAM INDICATORS</div>
+          <div class="rf-item">"Digital Arrest" is NOT a legal concept — does not exist in Indian law</div>
+          <div class="rf-item">Real police never demand money via UPI to avoid arrest</div>
+          <div class="rf-item">Keeping victim isolated on video call for hours — psychological pressure</div>
+          <div class="fraud-action">✓ Hang up immediately. Call 1930. Real courts send physical notices — not video calls.</div>
+        </div>
+      </div>
+
+      <div class="fraud">
+        <div class="fraud-hdr"><span class="fraud-ico">🤖</span><div><div class="fh-type">AI Voice Cloning · Hyderabad 2024</div><div class="fh-title">Cloned Son's Voice — ₹50,000 Transferred</div></div></div>
+        <div class="fraud-body">
+          <div class="fraud-story">A businessman received a call sounding exactly like his son — crying, saying he had an accident and needed ₹50,000 immediately in a "friend's" account. The AI-cloned voice was created from 3 seconds of his son's Instagram reel. He transferred before calling his son directly.</div>
+          <div class="rf-title">⚠ SCAM INDICATORS</div>
+          <div class="rf-item">Familiar voice but calling from unknown number</div>
+          <div class="rf-item">Extreme urgency — "Transfer now, explain later"</div>
+          <div class="rf-item">Asking to send money to third party account (not son's account)</div>
+          <div class="fraud-action">✓ Always call back on the person's known number before any transfer. AI clones voice, not identity.</div>
+        </div>
+      </div>
+
+      <div class="fraud">
+        <div class="fraud-hdr"><span class="fraud-ico">💰</span><div><div class="fh-type">Pig Butchering Scam · Bengaluru 2024</div><div class="fh-title">WhatsApp Trading Group — ₹40 Lakh Lost</div></div></div>
+        <div class="fraud-body">
+          <div class="fraud-story">A software engineer was added to a WhatsApp group called "Rakesh Jhunjhunwala Trading Tips." Fake insider tips. Invested ₹5,000 first, saw ₹12,000 "profit" in dashboard. Over 4 months, invested ₹40 lakh. The app vanished overnight.</div>
+          <div class="rf-title">⚠ SCAM INDICATORS</div>
+          <div class="rf-item">Added to WhatsApp/Telegram group by unknown person</div>
+          <div class="rf-item">Fake celebrity endorsement (Rakesh Jhunjhunwala is deceased)</div>
+          <div class="rf-item">Profits shown on custom app — not SEBI-registered platform</div>
+          <div class="fraud-action">✓ Only invest via SEBI-registered brokers. Verify at sebi.gov.in. Guaranteed returns = guaranteed scam.</div>
+        </div>
+      </div>
+
+      <div class="fraud">
+        <div class="fraud-hdr"><span class="fraud-ico">💌</span><div><div class="fh-type">Sextortion · Delhi 2024</div><div class="fh-title">Fake Matrimonial Profile — Morphed Photo Blackmail</div></div></div>
+        <div class="fraud-body">
+          <div class="fraud-story">A woman matched with a "NRI doctor" on a matrimonial app. After weeks of video calls (pre-recorded), he sent a morphed intimate photo claiming it was her and demanded ₹1 lakh. She had never shared any such photo — it was made from her public social media pictures.</div>
+          <div class="rf-title">⚠ SCAM INDICATORS</div>
+          <div class="rf-item">Profile too perfect — NRI, doctor, high salary, widowed</div>
+          <div class="rf-item">Never video calls in real-time — uses pre-recorded videos</div>
+          <div class="rf-item">Morphed photos made from public social media profile pictures</div>
+          <div class="fraud-action">✓ Don't pay. File under S.66E IT Act at cybercrime.gov.in. NCW helpline: 7827170170.</div>
+        </div>
+      </div>
+
+      <div class="fraud">
+        <div class="fraud-hdr"><span class="fraud-ico">📦</span><div><div class="fh-type">Phishing · Pan India 2024</div><div class="fh-title">Fake KYC SMS Link — Bank Account Drained</div></div></div>
+        <div class="fraud-body">
+          <div class="fraud-story">A retired employee received an SMS: "Your SBI KYC expires today. Click here: sbi-kyc-update.com." She clicked, entered Aadhaar and OTP. Within minutes, ₹1.5 lakh was transferred from her account in 3 transactions. The domain was registered that same week.</div>
+          <div class="rf-title">⚠ SCAM INDICATORS</div>
+          <div class="rf-item">Unofficial domain name — not sbi.co.in but sbi-kyc-update.com</div>
+          <div class="rf-item">Banks never send KYC update links via SMS</div>
+          <div class="rf-item">Urgency: "expires today"</div>
+          <div class="fraud-action">✓ Check URL carefully. Bank KYC only via official app or bank branch visit.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     REPORTING STEPS
+════════════════════════════════════ -->
+<section id="report-steps" style="background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);">
+  <div class="s-head">
+    <span class="s-tag">// ACT FAST — EVERY MINUTE COUNTS</span>
+    <h2 class="s-title">How to Report Cyber Crime</h2>
+    <p class="s-desc">Fraud ke shikaar hue? Is guide ko follow karein. Speed saves money — call 1930 pehle.</p>
+  </div>
+  <div class="wrap">
+    <div class="sos-banner">
+      <div class="big-num">1930</div>
+      <div>
+        <div style="font-family:var(--mono);font-size:0.66rem;letter-spacing:0.12em;color:var(--red);text-transform:uppercase;margin-bottom:4px;">🚨 FINANCIAL CYBER FRAUD EMERGENCY HELPLINE</div>
+        <div style="font-size:0.96rem;color:var(--text-bright);font-family:var(--head);font-weight:600;">Call <span style="color:var(--red);">1930</span> immediately after any financial cyber fraud. Faster you call → higher chance of fund recovery. Available 24×7.</div>
+      </div>
+    </div>
+
+    <div class="report-flow">
+      <div class="rs"><div class="step-circ sc-urg">01</div><div class="rs-body"><div class="rs-head"><div class="rs-title">📸 Evidence Collect Karein — Kuch Bhi Delete Mat Karein</div><span class="rs-time">⚡ IMMEDIATELY</span></div><div class="rs-text">Screenshots lein — transaction ID, fraudster ka number, WhatsApp/SMS messages, bank statement. Email headers save karein. <strong>Ye sab court mein aapka sabse bada hathiyaar hai.</strong></div></div></div>
+      <div class="rs"><div class="step-circ sc-urg">02</div><div class="rs-body"><div class="rs-head"><div class="rs-title">📞 1930 Par Call Karein</div><span class="rs-time">⚡ WITHIN 1 HOUR</span></div><div class="rs-text">National Cyber Crime Financial Fraud Helpline. 24×7 available. <strong>Apna bank name, account number, transaction ID</strong> ready rakhein. Helpline bank se coordinate karke fraudulent transactions freeze karti hai.</div></div></div>
+      <div class="rs"><div class="step-circ sc-act">03</div><div class="rs-body"><div class="rs-head"><div class="rs-title">🌐 cybercrime.gov.in Par Online Complaint</div><span class="rs-time">⏱ WITHIN 24 HRS</span></div><div class="rs-text">National Cyber Crime Reporting Portal par online complaint — police station jaane ki zaroorat nahin. "Report Financial Fraud" select karo. <strong>Complaint number note karo — ye tracking ID hai.</strong></div></div></div>
+      <div class="rs"><div class="step-circ sc-act">04</div><div class="rs-body"><div class="rs-head"><div class="rs-title">🏦 Bank Ko Immediately Inform Karein</div><span class="rs-time">⏱ SAME DAY</span></div><div class="rs-text">Apne bank ko official helpline par call karein (number card ke peeche). "My account is compromised — freeze all outgoing transactions." <strong>Online complaint number unhe dein.</strong></div></div></div>
+      <div class="rs"><div class="step-circ sc-ok">05</div><div class="rs-body"><div class="rs-head"><div class="rs-title">🏛 Nearest Cyber Cell Visit Karein</div><span class="rs-time">📅 WITHIN 3 DAYS</span></div><div class="rs-text">Online complaint ke baad nearest Cyber Crime Police Station jaayein. Printed evidence, complaint number, aadhar card saath lein. FIR file hogi. SP Cyber se milein agar response nahin mila.</div></div></div>
+      <div class="rs"><div class="step-circ sc-ok">06</div><div class="rs-body"><div class="rs-head"><div class="rs-title">⚖️ Shakeel Anjum Se Legal Help Lein</div><span class="rs-time">📅 IF NEEDED</span></div><div class="rs-text">Large amount fraud ya complex cases mein. Agar police action nahin le rahi — <strong>Judicial Magistrate ke samne Section 200 CrPC private complaint</strong> file ki ja sakti hai. CERT-In bhi notify karein: incident@cert-in.org.in</div></div></div>
+    </div>
+
+    <div style="margin-bottom:20px;font-family:var(--mono);font-size:0.63rem;letter-spacing:0.18em;color:var(--cyan);text-transform:uppercase;">// Official Reporting Portals</div>
+    <div class="portals-grid">
+      <a class="portal" href="https://cybercrime.gov.in" target="_blank"><span class="portal-ico">🌐</span><div><div class="p-name">Cyber Crime Portal</div><div class="p-url">cybercrime.gov.in</div></div></a>
+      <a class="portal" href="https://cert-in.org.in" target="_blank"><span class="portal-ico">🛡️</span><div><div class="p-name">CERT-In Portal</div><div class="p-url">cert-in.org.in</div></div></a>
+      <a class="portal" href="https://sachet.rbi.org.in" target="_blank"><span class="portal-ico">🏦</span><div><div class="p-name">RBI Sachet</div><div class="p-url">sachet.rbi.org.in</div></div></a>
+      <a class="portal" href="https://grievance.meity.gov.in" target="_blank"><span class="portal-ico">📋</span><div><div class="p-name">MeitY Grievance</div><div class="p-url">grievance.meity.gov.in</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     CYBER LAWS
+════════════════════════════════════ -->
+<section id="laws" style="background:var(--bg3);">
+  <div class="s-head">
+    <span class="s-tag">// LEGAL FRAMEWORK</span>
+    <h2 class="s-title">India's Cyber Laws</h2>
+    <p class="s-desc">IT Act 2000, DPDP Act 2023 and IT Rules 2021 explained simply — know your rights and the penalties for offenders.</p>
+  </div>
+  <div class="wrap">
+    <div class="tab-bar">
+      <button class="tab-btn on" onclick="showTab('ita',this)">IT Act 2000</button>
+      <button class="tab-btn" onclick="showTab('dpdp',this)">DPDP Act 2023</button>
+      <button class="tab-btn" onclick="showTab('itr',this)">IT Rules 2021</button>
+    </div>
+
+    <!-- IT ACT -->
+    <div class="tab-c on" id="ita">
+      <div class="law-lay">
+        <div class="law-side">
+          <div class="l-badge lb-c">IT ACT 2000</div>
+          <h3>Information Technology Act</h3>
+          <div class="law-yr">enacted 2000 · amended 2008</div>
+          <p>India's primary cybercrime legislation covering hacking, data theft, identity theft, obscenity and cyber terrorism. The 2008 amendment added critical sections.</p>
+          <div class="qf"><div class="qf-t">// Quick Facts</div>
+            <div class="qi"><span class="ql">Sections</span><span class="qv">90+</span></div>
+            <div class="qi"><span class="ql">Nodal Body</span><span class="qv">CERT-In</span></div>
+            <div class="qi"><span class="ql">Max Fine</span><span class="qv">₹5 Crore</span></div>
+            <div class="qi"><span class="ql">Max Jail</span><span class="qv">Life</span></div>
+          </div>
+        </div>
+        <div class="acc">
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">§43</span><div><div class="at">Unauthorised Computer Access</div><div class="as">Civil liability — up to ₹1 crore</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><p>Civil liability for unauthorised access, data theft, virus introduction and system disruption.</p><ul><li>Accessing computer resource without permission</li><li>Downloading or extracting data without authorisation</li><li>Introducing computer virus or contaminant</li><li>Disrupting a computer network</li></ul><div class="pen"><span class="pen-lbl">⚠ Civil Penalty</span>Damages up to ₹1,00,00,000 to affected person.</div></div></div></div>
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">§43A</span><div><div class="at">Sensitive Personal Data — Corporate Liability</div><div class="as">Negligence in data protection by companies</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><p>Corporate bodies liable for negligence in protecting sensitive personal data of individuals. ISO 27001 considered as reasonable security practice.</p><ul><li>Applies to all body corporates handling personal data</li><li>Liability arises from negligence — intent not required</li><li>No upper limit on compensation</li></ul></div></div></div>
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">§66</span><div><div class="at">Hacking / Computer Related Offences</div><div class="as">Criminal counterpart of Section 43</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><p>Criminalises acts under Section 43 when done dishonestly or fraudulently — the key criminal hacking provision.</p><div class="pen"><span class="pen-lbl">⚠ Criminal Penalty</span>Imprisonment up to 3 years, or fine up to ₹5,00,000, or both.</div></div></div></div>
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">§66B–F</span><div><div class="at">Identity Theft, Cheating, Privacy, Terrorism</div><div class="as">Specific cybercrime offences added in 2008</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><ul><li><strong class="cyan">§66B:</strong> Receiving stolen computer resource — 3 years</li><li><strong class="cyan">§66C:</strong> Identity theft (passwords, Aadhaar) — 3 years + ₹1L</li><li><strong class="cyan">§66D:</strong> Cheating by impersonation online — 3 years + ₹1L</li><li><strong class="cyan">§66E:</strong> Privacy violation (private images) — 3 years + ₹2L</li><li><strong class="cyan">§66F:</strong> Cyber terrorism — Life Imprisonment</li></ul></div></div></div>
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">§67–67B</span><div><div class="at">Obscene Content & Child Pornography Online</div><div class="as">CSAM — strict liability up to 7 years</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><ul><li><strong class="cyan">§67:</strong> Obscene material online — up to 5 years</li><li><strong class="cyan">§67A:</strong> Sexually explicit material — up to 7 years</li><li><strong class="cyan">§67B:</strong> Child pornography (CSAM) — up to 7 years, strict liability</li></ul></div></div></div>
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">§79</span><div><div class="at">Safe Harbour for Intermediaries</div><div class="as">Liability protection for platforms & ISPs</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><p>Exempts intermediaries from third-party content liability if they follow due diligence and act on knowledge of unlawful content. Safe harbour lost if platform conspires or aids the illegal act.</p></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DPDP -->
+    <div class="tab-c" id="dpdp">
+      <div class="law-lay">
+        <div class="law-side">
+          <div class="l-badge lb-g">DPDP ACT 2023</div>
+          <h3>Digital Personal Data Protection Act</h3>
+          <div class="law-yr">enacted August 2023</div>
+          <p>India's first comprehensive data protection law. Governs processing of digital personal data with individual rights and corporate obligations.</p>
+          <div class="qf"><div class="qf-t">// Quick Facts</div>
+            <div class="qi"><span class="ql">Max Penalty</span><span class="qv">₹250 Cr</span></div>
+            <div class="qi"><span class="ql">Regulator</span><span class="qv">DPBI</span></div>
+            <div class="qi"><span class="ql">Child Age</span><span class="qv">&lt;18 yrs</span></div>
+            <div class="qi"><span class="ql">Extraterritorial</span><span class="qv">Yes</span></div>
+          </div>
+        </div>
+        <div class="acc">
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">§4</span><div><div class="at">Grounds for Processing — Consent</div><div class="as">Free, specific, informed, unconditional consent</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><p>Personal data may only be processed with free, specific, informed, unconditional and unambiguous consent. Consent must be as easy to withdraw as to give.</p><ul><li>Legitimate uses: law compliance, medical emergencies, employment</li><li>Data cannot be processed beyond specified purpose</li></ul></div></div></div>
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">§6–8</span><div><div class="at">Your Rights as a Data Principal</div><div class="as">Access, correction, erasure, grievance</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><ul><li><strong class="green">Right to Information:</strong> Know what data is processed and by whom</li><li><strong class="green">Right to Correction:</strong> Fix inaccurate or incomplete data</li><li><strong class="green">Right to Erasure:</strong> Delete data when purpose is served</li><li><strong class="green">Right to Grievance:</strong> Timely complaint resolution</li><li><strong class="green">Right to Nomination:</strong> Nominate someone in case of death/incapacity</li></ul></div></div></div>
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">§9–16</span><div><div class="at">Obligations of Data Fiduciaries</div><div class="as">What companies must do with your data</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><ul><li>Maintain accuracy and completeness of personal data</li><li>Implement reasonable security safeguards against breaches</li><li>Children's data: obtain verifiable parental consent; no profiling</li><li>Mandatory breach notification to Data Protection Board</li><li>Significant Data Fiduciaries must appoint resident DPO</li></ul><div class="pen"><span class="pen-lbl">⚠ Penalties</span>Security failure: ₹250 Cr | Breach notification failure: ₹200 Cr | Children's data: ₹200 Cr</div></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IT RULES -->
+    <div class="tab-c" id="itr">
+      <div class="law-lay">
+        <div class="law-side">
+          <div class="l-badge lb-a">IT RULES 2021</div>
+          <h3>IT (Intermediary Guidelines) Rules</h3>
+          <div class="law-yr">notified February 2021</div>
+          <p>Governs social media platforms, digital news portals and OTT platforms. Imposes due diligence, traceability and grievance redressal obligations.</p>
+          <div class="qf"><div class="qf-t">// Quick Facts</div>
+            <div class="qi"><span class="ql">Large SMI</span><span class="qv">5M+ users</span></div>
+            <div class="qi"><span class="ql">Complaint ACK</span><span class="qv">24 hours</span></div>
+            <div class="qi"><span class="ql">Resolution</span><span class="qv">15 days</span></div>
+            <div class="qi"><span class="ql">CERT-In Reporting</span><span class="qv">6 hours</span></div>
+          </div>
+        </div>
+        <div class="acc">
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">Rule 3</span><div><div class="at">Due Diligence for All Intermediaries</div><div class="as">Basic obligations for every platform</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><ul><li>Publish rules, privacy policy and user agreement prominently</li><li>Appoint a Grievance Officer — acknowledge in 24 hours, resolve in 15 days</li><li>Remove unlawful content within 36 hours of court/government order</li><li>Retain data for 180 days after account removal</li></ul></div></div></div>
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">Rule 4</span><div><div class="at">Significant Social Media Intermediaries</div><div class="as">Enhanced obligations for 5M+ user platforms</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><ul><li>Chief Compliance Officer — Indian resident, personally liable</li><li>Nodal Contact Person — 24/7 for law enforcement coordination</li><li>Monthly public compliance reports with takedown statistics</li><li>Traceability of first message originator on court order</li><li>Proactive removal of CSAM and other specified content</li></ul></div></div></div>
+          <div class="ai"><div class="ah" onclick="toggleA(this)"><span class="an">CERT-In 2022</span><div><div class="at">CERT-In Mandatory Directions</div><div class="as">Incident reporting in 6 hours</div></div><span class="arr">›</span></div><div class="ab"><div class="ab-in"><ul><li>Report cybersecurity incidents to CERT-In within <strong class="cyan">6 hours</strong></li><li>Synchronise clocks with Indian Standard Time NTP servers</li><li>Maintain ICT system logs for <strong class="cyan">180 days</strong></li><li>VPN providers: maintain user logs for 5 years</li></ul><div class="pen"><span class="pen-lbl">⚠ Non-Compliance</span>Imprisonment up to 1 year and/or fine up to ₹1,00,000 under Section 70B IT Act.</div></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     CASE LAWS
+════════════════════════════════════ -->
+<section id="cases" style="background:var(--bg2);">
+  <div class="s-head">
+    <span class="s-tag">// LANDMARK JUDGEMENTS</span>
+    <h2 class="s-title">Important Case Laws</h2>
+    <p class="s-desc">Landmark judgements that shaped cybersecurity law and digital rights in India.</p>
+  </div>
+  <div class="wrap">
+    <div class="cases-grid">
+      <div class="case"><div class="c-tag">Supreme Court · Free Speech</div><div class="c-name">Shreya Singhal v. Union of India</div><div class="c-cite">AIR 2015 SC 1523 | (2015) 5 SCC 1</div><div class="c-body">Section 66A IT Act challenged for criminalising "grossly offensive" online communication as unconstitutionally vague.</div><div class="c-held"><strong>HELD</strong>Section 66A struck down — violates Art. 19(1)(a). Landmark free speech victory. Still misused by police post-2015.</div></div>
+      <div class="case"><div class="c-tag">Supreme Court · Privacy</div><div class="c-name">Justice K.S. Puttaswamy v. Union of India</div><div class="c-cite">(2017) 10 SCC 1</div><div class="c-body">9-judge Bench examined constitutional status of privacy in the context of Aadhaar biometric data collection.</div><div class="c-held"><strong>HELD</strong>Privacy is a Fundamental Right under Article 21. Foundation of DPDP Act 2023. Aadhaar use by private entities struck down.</div></div>
+      <div class="case"><div class="c-tag">Supreme Court · Internet Rights</div><div class="c-name">Anuradha Bhasin v. Union of India</div><div class="c-cite">(2020) 3 SCC 637</div><div class="c-body">Challenged prolonged internet shutdown in J&K post Article 370 revocation as violating fundamental rights.</div><div class="c-held"><strong>HELD</strong>Internet access is fundamental under Art. 19. Shutdowns must be temporary, necessary & proportionate. Indefinite shutdowns unconstitutional.</div></div>
+      <div class="case"><div class="c-tag">Supreme Court · Phone Tapping</div><div class="c-name">PUCL v. Union of India</div><div class="c-cite">AIR 1997 SC 568</div><div class="c-body">Legality of telephone tapping under Indian Telegraph Act and extent of state surveillance powers.</div><div class="c-held"><strong>HELD</strong>Phone tapping is serious invasion of privacy. Procedural safeguards mandatory before interception — paved the way for Sections 69–69B IT Act.</div></div>
+      <div class="case"><div class="c-tag">Bombay HC · FCU</div><div class="c-name">Agij Promotion v. UoI (Kunal Kamra)</div><div class="c-cite">WP(L)/8932/2023 | Bombay HC</div><div class="c-body">IT Amendment Rules 2023 challenged — government Fact Check Unit to flag "false" content about itself.</div><div class="c-held"><strong>HELD</strong>FCU provision struck down by Supreme Court — government cannot be sole arbiter of truth about itself. Violates Art. 19(1)(a).</div></div>
+      <div class="case"><div class="c-tag">Delhi HC · Intermediary Liability</div><div class="c-name">Super Cassettes v. MySpace Inc.</div><div class="c-cite">2011 (47) PTC 49 (Del)</div><div class="c-body">MySpace sued for hosting copyright-infringing user-uploaded content — Section 79 safe harbour examined.</div><div class="c-held"><strong>HELD</strong>Safe harbour lost once platform has actual knowledge of infringing content. Must act to remove it expeditiously.</div></div>
+      <div class="case"><div class="c-tag">Supreme Court · Encryption</div><div class="c-name">WhatsApp LLC v. Union of India</div><div class="c-cite">WP(C) No. 44/2019 | SC</div><div class="c-body">WhatsApp challenged IT Rules 2021 traceability requirement conflicting with end-to-end encryption.</div><div class="c-held"><strong>HELD</strong>Case pending — court recognised tension between traceability and privacy rights. Encryption vs. security debate ongoing.</div></div>
+      <div class="case"><div class="c-tag">Delhi HC · Blocking</div><div class="c-name">Foundation for Media Professionals v. UoI</div><div class="c-cite">WP(C) 5765/2020 | Delhi HC</div><div class="c-body">Challenged blocking orders under Section 69A against social media accounts during farm protest coverage.</div><div class="c-held"><strong>HELD</strong>Blocking orders must be proportionate. Originator must get opportunity to respond. Procedural safeguards reinforced.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     HINDI AWARENESS
+════════════════════════════════════ -->
+<section id="hindi" style="background:var(--bg);">
+  <div class="s-head">
+    <span class="s-tag">// हिंदी जागरूकता</span>
+    <h2 class="s-title">साइबर सुरक्षा जागरूकता</h2>
+    <p class="s-desc">भारत के साइबर कानूनों और डिजिटल सुरक्षा के बारे में सरल हिंदी में जानकारी — अपने परिवार को share करें।</p>
+  </div>
+  <div class="wrap">
+    <div class="hi-grid">
+      <div class="hi-card"><span class="hi-tag">IT अधिनियम — धारा 66C</span><div class="hi-h">पहचान की चोरी (Identity Theft)</div><div class="hi-t">कोई आपका पासवर्ड, Aadhaar number या OTP use करे तो यह Identity Theft है। धारा 66C के तहत 3 साल तक की जेल और ₹1 लाख का जुर्माना।</div><div class="hi-pen">⚠ OTP कभी न दें — बैंक को भी नहीं।</div></div>
+      <div class="hi-card"><span class="hi-tag">IT अधिनियम — धारा 66E</span><div class="hi-h">निजता का उल्लंघन</div><div class="hi-t">बिना सहमति किसी की private photos लेना, share करना या morph करना धारा 66E के तहत अपराध। Deepfakes और morphed pictures भी शामिल।</div><div class="hi-pen">⚠ दंड: 3 साल कैद + ₹2 लाख जुर्माना।</div></div>
+      <div class="hi-card"><span class="hi-tag">DPDP अधिनियम 2023</span><div class="hi-h">आपके डेटा के अधिकार</div><div class="hi-t">DPDP Act 2023 के तहत आपको अपना data देखने, सुधारने और delete करने का अधिकार है। कोई भी company आपकी permission के बिना data use नहीं कर सकती।</div><div class="hi-pen">⚠ उल्लंघन पर ₹250 करोड़ तक जुर्माना।</div></div>
+      <div class="hi-card"><span class="hi-tag">Digital Arrest — सबसे बड़ा Fraud</span><div class="hi-h">Digital Arrest कोई कानून नहीं!</div><div class="hi-t">CBI/Police बनकर Video Call पर "Digital Arrest" बताना पूरा fraud है। ऐसा कोई कानून India में है ही नहीं। PM Modi ने भी यही कहा है।</div><div class="hi-pen">⚠ Call तुरंत काटें। 1930 पर call करें।</div></div>
+      <div class="hi-card"><span class="hi-tag">IT नियम 2021</span><div class="hi-h">Social Media पर आपके अधिकार</div><div class="hi-t">IT Rules 2021 के तहत सभी बड़े social media platforms को 24 घंटे में complaint स्वीकार करनी होती है और 15 दिन में हल करना होता है।</div><div class="hi-pen">⚠ शिकायत: grievance.meity.gov.in</div></div>
+      <div class="hi-card"><span class="hi-tag">Shreya Singhal Case 2015</span><div class="hi-h">Internet पर बोलने की आज़ादी</div><div class="hi-t">Supreme Court ने 2015 में Shreya Singhal मामले में कहा — internet पर अभिव्यक्ति की स्वतंत्रता Article 19(1)(a) के तहत fundamental right है।</div></div>
+    </div>
+
+    <div style="margin-top:32px;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.18em;color:var(--cyan);text-transform:uppercase;margin-bottom:16px;text-align:center;">// साइबर सुरक्षा के ज़रूरी उपाय</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;">
+      <div style="background:rgba(0,232,122,0.04);border:1px solid rgba(0,232,122,0.14);padding:16px 18px;display:flex;gap:11px;border-radius:3px;"><span style="font-size:1.25rem;">🔒</span><div style="font-size:0.9rem;line-height:1.68;color:var(--text);"><strong style="color:var(--text-bright);">मज़बूत Password:</strong> 12+ characters, letters+numbers+symbols. 2FA ज़रूर on करें।</div></div>
+      <div style="background:rgba(0,232,122,0.04);border:1px solid rgba(0,232,122,0.14);padding:16px 18px;display:flex;gap:11px;border-radius:3px;"><span style="font-size:1.25rem;">📞</span><div style="font-size:0.9rem;line-height:1.68;color:var(--text);"><strong style="color:var(--text-bright);">Fraud हो तो:</strong> तुरंत <strong style="color:var(--cyan);">1930</strong> call करें। पैसा वापस मिल सकता है अगर जल्दी call करें।</div></div>
+      <div style="background:rgba(0,232,122,0.04);border:1px solid rgba(0,232,122,0.14);padding:16px 18px;display:flex;gap:11px;border-radius:3px;"><span style="font-size:1.25rem;">💳</span><div style="font-size:0.9rem;line-height:1.68;color:var(--text);"><strong style="color:var(--text-bright);">UPI Safety:</strong> QR scan receive करने के लिए नहीं, sirf pay करने के लिए। PIN कभी ना दें।</div></div>
+      <div style="background:rgba(0,232,122,0.04);border:1px solid rgba(0,232,122,0.14);padding:16px 18px;display:flex;gap:11px;border-radius:3px;"><span style="font-size:1.25rem;">📱</span><div style="font-size:0.9rem;line-height:1.68;color:var(--text);"><strong style="color:var(--text-bright);">Screen Share:</strong> AnyDesk/TeamViewer कभी install न करें किसी के कहने पर। Screen share = account empty।</div></div>
+      <div style="background:rgba(0,232,122,0.04);border:1px solid rgba(0,232,122,0.14);padding:16px 18px;display:flex;gap:11px;border-radius:3px;"><span style="font-size:1.25rem;">👶</span><div style="font-size:0.9rem;line-height:1.68;color:var(--text);"><strong style="color:var(--text-bright);">बच्चों की सुरक्षा:</strong> 18 साल से कम बच्चों का data parents की permission के बिना process नहीं हो सकता — DPDP Act 2023।</div></div>
+      <div style="background:rgba(0,232,122,0.04);border:1px solid rgba(0,232,122,0.14);padding:16px 18px;display:flex;gap:11px;border-radius:3px;"><span style="font-size:1.25rem;">🌐</span><div style="font-size:0.9rem;line-height:1.68;color:var(--text);"><strong style="color:var(--text-bright);">Social Media:</strong> Aadhaar, PAN कभी public न करें। Fake profile बनाना §66C/66D के तहत crime है।</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     SAFETY TIPS
+════════════════════════════════════ -->
+<section id="tips" style="background:var(--bg2);">
+  <div class="s-head">
+    <span class="s-tag">// DIGITAL SAFETY</span>
+    <h2 class="s-title">Cyber Safety Best Practices</h2>
+    <p class="s-desc">Practical steps every digital citizen should follow to stay safe online.</p>
+  </div>
+  <div class="wrap">
+    <div class="tips-grid">
+      <div class="tip"><span class="tip-ico">🔒</span><div class="tip-t">Strong Authentication</div><div class="tip-b">Use 12+ character passwords with letters, numbers and symbols. Enable 2FA on all critical accounts. Never reuse passwords across platforms.</div></div>
+      <div class="tip"><span class="tip-ico">🎣</span><div class="tip-t">Phishing Awareness</div><div class="tip-b">Verify sender addresses carefully. Hover links before clicking. Banks and UIDAI never ask for OTPs via call or SMS. Report phishing to CERT-In.</div></div>
+      <div class="tip"><span class="tip-ico">📱</span><div class="tip-t">App Permissions</div><div class="tip-b">Audit app permissions regularly. Revoke unnecessary camera, microphone, location and contact access. DPDP Act 2023 gives you the right to withdraw consent.</div></div>
+      <div class="tip"><span class="tip-ico">💳</span><div class="tip-t">UPI & Financial Safety</div><div class="tip-b">Enable transaction alerts. Never share OTPs. QR code scan only for paying, never to receive. If defrauded, call 1930 immediately.</div></div>
+      <div class="tip"><span class="tip-ico">🛡️</span><div class="tip-t">Device Security</div><div class="tip-b">Keep OS and apps updated. Install reputable antivirus. Encrypt storage. Use VPN on public Wi-Fi. Enable remote wipe for lost devices.</div></div>
+      <div class="tip"><span class="tip-ico">⚖️</span><div class="tip-t">Know Your Rights</div><div class="tip-b">Under DPDP Act 2023, you can access, correct and erase your data. Challenge companies that collect excessive data. File with DPBI if violated.</div></div>
+      <div class="tip"><span class="tip-ico">👶</span><div class="tip-t">Child Online Safety</div><div class="tip-b">Enable parental controls. DPDP Act requires parental consent for under-18 data processing. CSAM is a cognisable offence under Section 67B IT Act.</div></div>
+      <div class="tip"><span class="tip-ico">🏢</span><div class="tip-t">Corporate Compliance</div><div class="tip-b">Implement ISO 27001 under S.43A. Notify CERT-In of breaches within 6 hours. Appoint a Data Protection Officer. DPDP non-compliance = ₹250 Cr fine.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     QUIZ
+════════════════════════════════════ -->
+<section id="quiz" style="background:var(--bg3);">
+  <div class="s-head">
+    <span class="s-tag">// TEST YOUR KNOWLEDGE</span>
+    <h2 class="s-title">Cyber Law Awareness Quiz</h2>
+    <p class="s-desc">10 questions on India's cyber laws, scams and your digital rights. How aware are you?</p>
+  </div>
+  <div class="wrap">
+    <div class="quiz-wrap">
+      <div class="qcard">
+        <div id="qMain">
+          <div class="q-prog"><div class="q-bar"><div class="q-fill" id="qFill" style="width:0%"></div></div><div class="q-txt" id="qTxt">1 / 10</div></div>
+          <div class="q-q" id="qQ"></div>
+          <div class="q-opts" id="qOpts"></div>
+          <div class="q-fb" id="qFb"></div>
+          <div class="q-nav"><button class="btn-nxt" id="btnNxt" onclick="nextQ()" disabled>Next ›</button></div>
+        </div>
+        <div class="q-res" id="qRes" style="display:none">
+          <span class="score-big" id="sBig"></span>
+          <div class="score-msg" id="sMsg"></div>
+          <div class="score-sub" id="sSub"></div>
+          <button class="btn-nxt" onclick="restartQ()">↺ &nbsp; Try Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     SOCIAL PROOF
+════════════════════════════════════ -->
+<section id="proof" style="background:var(--bg);">
+  <div class="s-head">
+    <span class="s-tag">// IMPACT & CREDIBILITY</span>
+    <h2 class="s-title">What People Say</h2>
+    <p class="s-desc">Real feedback from citizens, students, police officers and corporate teams trained by Shakeel Anjum.</p>
+  </div>
+  <div class="wrap">
+    <div class="test-grid">
+      <div class="test"><div class="qm">"</div><div class="test-txt">Shakeel Sir ki workshop ke baad main pehchan gayi OTP fraud kaise hota hai. Ek hafta baad meri mausi ke saath exactly wahi hua — maine turant 1930 call kiya. Paisa bach gaya! Unki guidance ne meri family ko bachaya.</div><div class="test-auth"><div class="t-av">👩</div><div><div class="t-nm">Priya Agarwal</div><div class="t-rl">Housewife, Lucknow · Workshop Participant</div></div></div></div>
+      <div class="test"><div class="qm">"</div><div class="test-txt">As a police inspector handling cyber cases, I found Shakeel Anjum's session on digital evidence collection and IT Act provisions exceptionally practical. His real case examples made complex legal concepts completely clear for our entire Cyber Cell team.</div><div class="test-auth"><div class="t-av">👮</div><div><div class="t-nm">Inspector R. Sharma</div><div class="t-rl">Cyber Crime Cell, UP Police</div></div></div></div>
+      <div class="test"><div class="qm">"</div><div class="test-txt">Our corporate team of 200+ employees completed Shakeel Sir's phishing simulation and DPDP compliance workshop. Within 3 months, click-through rates on phishing test emails dropped by 78%. Most impactful security training we've had.</div><div class="test-auth"><div class="t-av">👔</div><div><div class="t-nm">Rahul Mehta</div><div class="t-rl">CISO, Mid-Size IT Company, Pune</div></div></div></div>
+      <div class="test"><div class="qm">"</div><div class="test-txt">Main investment scam ka shikaar hua — ₹3 lakh gone. Shakeel Anjum ji ne free mein guide kiya, FIR drafting mein help ki aur CERT-In complaint file karayi. 6 mahine baad ₹1.8 lakh wapis aaye. Unka kaam sacchi sewa hai.</div><div class="test-auth"><div class="t-av">👨</div><div><div class="t-nm">Mohammad Farhan</div><div class="t-rl">Small Business Owner, Hyderabad</div></div></div></div>
+      <div class="test"><div class="qm">"</div><div class="test-txt">We invited Shakeel Anjum for a session for our 500 girl students. His Hindi presentation was perfect for our students. Three girls came forward after the session having been blackmailed online — they finally felt safe to speak up.</div><div class="test-auth"><div class="t-av">👩‍🏫</div><div><div class="t-nm">Sister Mary Francis</div><div class="t-rl">Principal, Girls' College, Agra</div></div></div></div>
+      <div class="test"><div class="qm">"</div><div class="test-txt">The DPDP Act compliance workshop was exactly what our legal team needed. Clear, actionable and perfectly timed with enforcement. He explained obligations we could directly convert into company policies. Highly recommended for any data-handling startup.</div><div class="test-auth"><div class="t-av">⚖️</div><div><div class="t-nm">Adv. Nisha Rao</div><div class="t-rl">Legal Head, Fintech Startup, Mumbai</div></div></div></div>
+    </div>
+
+    <div class="ws-stats">
+      <div class="wss"><span class="wss-v">500+</span><div class="wss-l">Workshops</div></div>
+      <div class="wss"><span class="wss-v">1L+</span><div class="wss-l">Trained</div></div>
+      <div class="wss"><span class="wss-v">28</span><div class="wss-l">States</div></div>
+      <div class="wss"><span class="wss-v">400+</span><div class="wss-l">Cases</div></div>
+      <div class="wss"><span class="wss-v">6</span><div class="wss-l">Languages</div></div>
+      <div class="wss"><span class="wss-v">4.9★</span><div class="wss-l">Rating</div></div>
+    </div>
+
+    <div style="margin-top:24px;text-align:center;">
+      <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;margin-bottom:12px;">// Collaborations & Associations</div>
+      <div class="collabs">
+        <div class="collab">🏛 MHA Cyber Division</div>
+        <div class="collab">🛡 CERT-In</div>
+        <div class="collab">👩 NCW Women's Safety</div>
+        <div class="collab">👮 UP Police Cyber Cell</div>
+        <div class="collab">🏫 UGC Campus Awareness</div>
+        <div class="collab">📺 Doordarshan</div>
+        <div class="collab">🏦 RBI Financial Literacy</div>
+        <div class="collab">⚖️ Bar Council Workshops</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     HELPLINE
+════════════════════════════════════ -->
+<section id="helpline" style="background:var(--bg2);">
+  <div class="s-head">
+    <span class="s-tag">// SAVE THESE NUMBERS</span>
+    <h2 class="s-title">Cyber Crime Helplines</h2>
+    <p class="s-desc">Official cybersecurity reporting channels in India — save now, use when needed.</p>
+  </div>
+  <div class="wrap">
+    <div class="hl-grid">
+      <div class="hl"><span class="hl-num">1930</span><div class="hl-name">National Cyber Financial Fraud</div><div class="hl-org">MHA — 24×7</div></div>
+      <div class="hl"><span class="hl-num">112</span><div class="hl-name">National Emergency</div><div class="hl-org">Police / Emergency</div></div>
+      <div class="hl"><span class="hl-num">1091</span><div class="hl-name">Women Cyber Helpline</div><div class="hl-org">NCW</div></div>
+      <div class="hl"><span class="hl-num">1800-11-4949</span><div class="hl-name">CERT-In Reporting</div><div class="hl-org">MeitY</div></div>
+      <div class="hl"><span class="hl-num">.gov.in</span><div class="hl-name">cybercrime.gov.in Portal</div><div class="hl-org">National CCRP</div></div>
+      <div class="hl"><span class="hl-num">14440</span><div class="hl-name">RBI Fraud Helpline</div><div class="hl-org">Reserve Bank of India</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     ABOUT
+════════════════════════════════════ -->
+<section id="about" style="background:var(--bg3);">
+  <div class="s-head">
+    <span class="s-tag">// WHO WE ARE</span>
+    <h2 class="s-title">About CyberShield India</h2>
+    <p class="s-desc">A free expert-led public awareness initiative by Shakeel Anjum — empowering every Indian citizen in the digital world.</p>
+  </div>
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-card"><span class="about-ico">🎯</span><div class="about-t">Our Mission</div><div class="about-b">To bridge the knowledge gap between India's rapidly evolving cybersecurity laws and everyday citizens. We believe awareness is the first line of defence. By translating complex legal provisions into accessible Hindi and English content, we protect all Indians in the digital space.</div></div>
+      <div class="about-card"><span class="about-ico">👁️</span><div class="about-t">Our Vision</div><div class="about-b">A digitally literate India where every citizen knows their cyber rights and obligations — from metro cities to rural villages. India's most trusted free public cybersecurity awareness resource in multiple Indian languages.</div></div>
+      <div class="about-card about-full">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
+          <div style="background:rgba(0,200,255,0.04);border:1px solid var(--border);padding:18px;text-align:center;border-radius:3px;"><div style="font-family:var(--mono);font-size:1.5rem;color:var(--cyan);">2019</div><div style="font-size:0.68rem;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">Founded</div></div>
+          <div style="background:rgba(0,200,255,0.04);border:1px solid var(--border);padding:18px;text-align:center;border-radius:3px;"><div style="font-family:var(--mono);font-size:1.5rem;color:var(--green);">1L+</div><div style="font-size:0.68rem;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">Citizens</div></div>
+          <div style="background:rgba(0,200,255,0.04);border:1px solid var(--border);padding:18px;text-align:center;border-radius:3px;"><div style="font-family:var(--mono);font-size:1.5rem;color:var(--amber);">500+</div><div style="font-size:0.68rem;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">Workshops</div></div>
+          <div style="background:rgba(0,200,255,0.04);border:1px solid var(--border);padding:18px;text-align:center;border-radius:3px;"><div style="font-family:var(--mono);font-size:1.5rem;color:var(--purple);">28</div><div style="font-size:0.68rem;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">States</div></div>
+          <div style="background:rgba(0,200,255,0.04);border:1px solid var(--border);padding:18px;text-align:center;border-radius:3px;"><div style="font-family:var(--mono);font-size:1.5rem;color:var(--cyan);">FREE</div><div style="font-size:0.68rem;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">Resource</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:22px;">
+      <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;margin-bottom:12px;">// Follow & Connect</div>
+      <div class="soc-row">
+        <a href="#" class="soc-btn">𝕏 Twitter</a>
+        <a href="#" class="soc-btn">📘 Facebook</a>
+        <a href="#" class="soc-btn">📸 Instagram</a>
+        <a href="#" class="soc-btn">💼 LinkedIn</a>
+        <a href="#" class="soc-btn">▶ YouTube</a>
+        <a href="#" class="soc-btn">💬 Telegram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     CONTACT
+════════════════════════════════════ -->
+<section id="contact" style="background:var(--bg2);">
+  <div class="s-head">
+    <span class="s-tag">// GET IN TOUCH</span>
+    <h2 class="s-title">Contact Shakeel Anjum</h2>
+    <p class="s-desc">Book a workshop, consultation, or reach out with your cyber law query.</p>
+  </div>
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <div class="ci-item"><span class="ci-ico">📧</span><div><div class="ci-lbl">Email</div><div class="ci-val">shakeel@cybershieldindia.org</div></div></div>
+        <div class="ci-item"><span class="ci-ico">📞</span><div><div class="ci-lbl">Phone / WhatsApp</div><div class="ci-val">+91 98765 43210</div></div></div>
+        <div class="ci-item"><span class="ci-ico">📍</span><div><div class="ci-lbl">Location</div><div class="ci-val">Based in India — Workshops Pan-India<br>Online consultations available</div></div></div>
+        <div class="ci-item"><span class="ci-ico">🕐</span><div><div class="ci-lbl">Response Time</div><div class="ci-val">Mon–Sat: 9AM–7PM IST<br>Emergency: call 1930 (24×7)</div></div></div>
+        <a href="https://wa.me/919876543210?text=Hi%20Shakeel%20Sir%2C%20I%20need%20cyber%20help" target="_blank" class="btn-g" style="margin-top:14px;justify-content:center;text-decoration:none;display:flex;">💬 &nbsp; Chat on WhatsApp</a>
+      </div>
+      <div class="cform">
+        <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;color:var(--cyan);margin-bottom:20px;text-transform:uppercase;">// Send a Message</div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Full Name *</label><input type="text" class="fi" id="cN" placeholder="Your name"></div>
+          <div class="fg"><label class="fl">Email *</label><input type="email" class="fi" id="cE" placeholder="your@email.com"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Phone</label><input type="tel" class="fi" id="cP" placeholder="+91 XXXXX XXXXX"></div>
+          <div class="fg"><label class="fl">Organisation</label><input type="text" class="fi" id="cO" placeholder="Optional"></div>
+        </div>
+        <div class="fg"><label class="fl">Subject *</label>
+          <select class="fs" id="cS">
+            <option value="">Select subject</option>
+            <option>Book Cyber Awareness Workshop</option>
+            <option>Cyber Law Consultation</option>
+            <option>Corporate Training Enquiry</option>
+            <option>School / College Programme</option>
+            <option>General Cyber Law Query</option>
+            <option>Media / Press Inquiry</option>
+            <option>Volunteer / Collaboration</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Message *</label><textarea class="fta" id="cM" placeholder="Describe your query, requirement or message..."></textarea></div>
+        <div class="fg" style="display:flex;align-items:flex-start;gap:9px;margin-bottom:16px;">
+          <input type="checkbox" id="cCon" style="margin-top:3px;accent-color:var(--cyan);width:13px;height:13px;">
+          <label for="cCon" style="font-size:0.76rem;color:var(--text-dim);line-height:1.6;cursor:pointer;">I consent to my data being used only to respond to this query. (DPDP Act 2023 compliant)</label>
+        </div>
+        <button class="btn-sub" onclick="submitForm()">✉ &nbsp; Send Message</button>
+        <div class="f-ok" id="fOk">✓ Message sent! Shakeel Anjum's team will respond within 1–2 business days.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     DISCLAIMER
+════════════════════════════════════ -->
+<section id="disclaimer" style="background:var(--bg3);">
+  <div class="s-head">
+    <span class="s-tag">// IMPORTANT NOTICE</span>
+    <h2 class="s-title" style="color:var(--amber);">Disclaimer</h2>
+    <p class="s-desc">Please read carefully before relying on any information on this portal.</p>
+  </div>
+  <div class="wrap">
+    <div class="dis-box">
+      <div class="dis-head"><span style="font-size:1.7rem;">⚠️</span><div class="dis-title">Legal Disclaimer — CyberShield India</div></div>
+      <div class="dis-grid">
+        <div class="dis-b"><div class="dis-bt">Educational Purpose Only</div><div class="dis-bd">All content is for educational and public awareness purposes only. It does not constitute legal advice or professional legal counsel. For specific legal matters, always consult a qualified advocate registered with the Bar Council of India.</div></div>
+        <div class="dis-b"><div class="dis-bt">No Lawyer-Client Relationship</div><div class="dis-bd">Using this website does not create any attorney-client relationship with Shakeel Anjum or CyberShield India. Contact is for workshop and consultation bookings — not emergency legal representation.</div></div>
+        <div class="dis-b"><div class="dis-bt">Accuracy of Information</div><div class="dis-bd">We make every effort to keep content current. However cyber laws evolve rapidly. Always verify with official sources — MeitY, MHA, CERT-In and indiacode.nic.in — before taking legal action.</div></div>
+        <div class="dis-b"><div class="dis-bt">Case Law Summaries</div><div class="dis-bd">Case law summaries are educational abstracts only and should not be cited in legal proceedings. Always refer to official judgements at sci.gov.in and respective High Court websites.</div></div>
+        <div class="dis-b"><div class="dis-bt">No Liability</div><div class="dis-bd">Shakeel Anjum and CyberShield India shall not be liable for any loss, damage or inconvenience arising from reliance on information on this portal. Users must independently verify all legal provisions.</div></div>
+        <div class="dis-b"><div class="dis-bt">DPDP Act Compliance</div><div class="dis-bd">Contact form data is collected only with your explicit consent, used solely to respond to queries, and not shared with third parties. You may request deletion at any time by emailing us.</div></div>
+      </div>
+      <div style="margin-top:20px;padding-top:14px;border-top:1px solid rgba(255,179,0,0.1);font-family:var(--mono);font-size:0.66rem;color:var(--amber);letter-spacing:0.05em;">Last Updated: January 2025 · CyberShield India · Shakeel Anjum · Information subject to change without notice.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<footer>
+  <div class="foot-top">
+    <div class="fc">
+      <div style="font-family:var(--head);font-size:1.15rem;font-weight:700;color:var(--cyan);letter-spacing:0.07em;margin-bottom:9px;">🛡 CyberShield India</div>
+      <p style="margin-bottom:13px;">Expert-led cyber awareness by Shakeel Anjum — protecting Indian citizens from online fraud, cyber scams and cybercrime.</p>
+      <div style="font-family:var(--mono);font-size:0.58rem;color:var(--green);border:1px solid rgba(0,232,122,0.2);display:inline-block;padding:3px 9px;margin-bottom:13px;letter-spacing:0.1em;">● FREE · NON-PROFIT · PAN-INDIA</div>
+      <div class="social-strip">
+        <a href="#" class="soc-a">𝕏</a><a href="#" class="soc-a">📘</a>
+        <a href="#" class="soc-a">📸</a><a href="#" class="soc-a">💼</a>
+        <a href="#" class="soc-a">▶</a><a href="#" class="soc-a">💬</a>
+      </div>
+    </div>
+    <div class="fc"><div class="fc-title">Expert & Services</div><ul>
+      <li><a href="#shakeel">About Shakeel Anjum</a></li>
+      <li><a href="#services">Workshops & Training</a></li>
+      <li><a href="#services">Cyber Law Consulting</a></li>
+      <li><a href="#services">Corporate Training</a></li>
+      <li><a href="#proof">Social Proof</a></li>
+    </ul></div>
+    <div class="fc"><div class="fc-title">Awareness</div><ul>
+      <li><a href="#scams">Common Scams</a></li>
+      <li><a href="#frauds">Real Fraud Cases</a></li>
+      <li><a href="#report-steps">How to Report</a></li>
+      <li><a href="#laws">Cyber Laws</a></li>
+      <li><a href="#cases">Case Laws</a></li>
+      <li><a href="#hindi">हिंदी जागरूकता</a></li>
+      <li><a href="#quiz">Awareness Quiz</a></li>
+    </ul></div>
+    <div class="fc"><div class="fc-title">Resources</div><ul>
+      <li><a href="https://cybercrime.gov.in" target="_blank">cybercrime.gov.in</a></li>
+      <li><a href="https://cert-in.org.in" target="_blank">CERT-In</a></li>
+      <li><a href="https://meity.gov.in" target="_blank">MeitY</a></li>
+      <li><a href="https://sci.gov.in" target="_blank">Supreme Court</a></li>
+      <li><a href="#helpline">Helplines</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#disclaimer">Disclaimer</a></li>
+    </ul></div>
+  </div>
+  <div class="foot-btm">
+    <div class="foot-copy">© 2025 CyberShield India · Shakeel Anjum · Educational Use Only · All Rights Reserved</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="#disclaimer" style="font-family:var(--mono);font-size:0.58rem;color:var(--text-dim);text-decoration:none;padding:3px 8px;border:1px solid var(--border);border-radius:2px;">Disclaimer</a>
+      <a href="#contact" style="font-family:var(--mono);font-size:0.58rem;color:var(--text-dim);text-decoration:none;padding:3px 8px;border:1px solid var(--border);border-radius:2px;">Contact</a>
+      <a href="https://cybercrime.gov.in" target="_blank" style="font-family:var(--mono);font-size:0.58rem;color:var(--red);text-decoration:none;padding:3px 8px;border:1px solid rgba(255,61,61,0.3);border-radius:2px;">🚨 Report Crime</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── MATRIX ── */
+const cv=document.getElementById('mc');
+const cx=cv.getContext('2d');
+cv.width=window.innerWidth;cv.height=window.innerHeight;
+const cols=Math.floor(cv.width/18);
+const dp=Array(cols).fill(0).map(()=>Math.random()*-120);
+const ch='01アイウエオカキクケコサシスセソデジタルサイバーセキュリティ';
+function matrix(){
+  cx.fillStyle='rgba(2,8,15,0.05)';cx.fillRect(0,0,cv.width,cv.height);
+  cx.fillStyle='#00c8ff';cx.font='12px Share Tech Mono,monospace';
+  dp.forEach((y,i)=>{
+    cx.fillText(ch[Math.floor(Math.random()*ch.length)],i*18,y*18);
+    if(y*18>cv.height&&Math.random()>0.975)dp[i]=0;
+    dp[i]+=0.55;
+  });
+}
+setInterval(matrix,55);
+window.addEventListener('resize',()=>{cv.width=window.innerWidth;cv.height=window.innerHeight;});
+
+/* ── COUNTER ANIMATION ── */
+function animateCounters(){
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target);
+    let cur=0;const step=target/60;
+    const t=setInterval(()=>{
+      cur=Math.min(cur+step,target);
+      if(target>=1000){el.textContent=cur>=1000?Math.floor(cur/1000)+'K+':Math.floor(cur);}
+      else{el.textContent=Math.floor(cur)+(target>20?'+':'');}
+      if(cur>=target)clearInterval(t);
+    },28);
+  });
+}
+const heroObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){animateCounters();heroObs.disconnect();}
+},{threshold:0.3});
+heroObs.observe(document.getElementById('hero'));
+
+/* ── NAV ── */
+function toggleNav(){
+  const d=document.getElementById('drawer');
+  const h=document.getElementById('ham');
+  d.classList.toggle('open');
+  h.textContent=d.classList.contains('open')?'✕':'☰';
+}
+function cn(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('ham').textContent='☰';
+}
+
+/* ── SCAM FILTER ── */
+function filterS(cat,btn){
+  document.querySelectorAll('.sf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.sc').forEach(c=>{
+    c.style.display=(cat==='all'||c.dataset.c===cat)?'':'none';
+  });
+}
+
+/* ── TABS ── */
+function showTab(id,btn){
+  document.querySelectorAll('.tab-c').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
+
+/* ── ACCORDION ── */
+function toggleA(hdr){
+  const item=hdr.closest('.ai');
+  const open=item.classList.contains('op');
+  item.closest('.acc').querySelectorAll('.ai.op').forEach(i=>i.classList.remove('op'));
+  if(!open)item.classList.add('op');
+}
+
+/* ── QUIZ ── */
+const Qs=[
+  {q:"Under Section 66C IT Act, what is the punishment for identity theft using someone's Aadhaar or password?",o:["1 year + ₹50,000","3 years + ₹1,00,000","5 years + ₹5,00,000","Only civil penalty"],a:1,f:"Section 66C: imprisonment up to 3 years AND/OR fine up to ₹1,00,000 for identity theft using electronic signature, password or unique identification feature."},
+  {q:"Which Supreme Court case struck down Section 66A of the IT Act as unconstitutional?",o:["Anuradha Bhasin v. UoI","Puttaswamy v. UoI","Shreya Singhal v. UoI","PUCL v. UoI"],a:2,f:"Shreya Singhal v. UoI (2015) — Section 66A struck down for violating Article 19(1)(a). Terms 'grossly offensive' held unconstitutionally vague and overbroad."},
+  {q:"Under DPDP Act 2023, maximum penalty for failure to implement data security safeguards?",o:["₹50 Crore","₹100 Crore","₹250 Crore","₹500 Crore"],a:2,f:"DPDP Act 2023 prescribes penalty up to ₹250 Crore for failure to implement reasonable security safeguards to prevent personal data breaches."},
+  {q:"Within how many hours must cybersecurity incidents be reported to CERT-In (2022 Directions)?",o:["24 hours","12 hours","72 hours","6 hours"],a:3,f:"CERT-In Directions 2022 mandate reporting within 6 hours of becoming aware of any cybersecurity incident. Non-compliance: imprisonment up to 1 year."},
+  {q:"'Digital Arrest' — police arresting you over a video call — is:",o:["Legal under Section 69 IT Act","A valid special police procedure","Completely fake — a scam","Only legal for serious crimes"],a:2,f:"'Digital Arrest' has ZERO legal basis in India. Police never arrest anyone over video calls or demand money online. PM Modi publicly warned citizens about this fraud. Hang up and call 1930."},
+  {q:"For UPI financial fraud — which number should you call FIRST?",o:["112","1930","100","14440"],a:1,f:"1930 is India's National Cyber Crime Financial Fraud Helpline (MHA). Call immediately — faster you report, higher the chance of freezing fraudulent transactions and fund recovery."},
+  {q:"Under DPDP Act 2023, what age is defined as a 'child' requiring parental consent?",o:["16 years","21 years","18 years","13 years"],a:2,f:"DPDP Act 2023 defines anyone below 18 years as a 'child'. Data Fiduciaries must obtain verifiable parental consent before processing any child's personal data."},
+  {q:"To RECEIVE money on UPI, what do you need to do?",o:["Scan QR code","Enter PIN","Share OTP","Nothing — just wait for sender to pay"],a:3,f:"You do NOT need to scan any QR code or enter any PIN to RECEIVE UPI money. The SENDER scans and pays. Any instruction to scan or enter PIN to receive = SCAM."},
+  {q:"Section 79 IT Act safe harbour for platforms is LOST when:",o:["Platform has more than 1 crore users","Platform is registered outside India","Platform conspires with or fails to act on actual knowledge of unlawful content","Users post political content"],a:2,f:"Under Section 79(3), safe harbour is lost when the intermediary conspires, abets or aids the unlawful act, or upon receiving actual knowledge fails to expeditiously remove unlawful content."},
+  {q:"Which case established internet shutdowns must be temporary, necessary and proportionate?",o:["Shreya Singhal v. UoI","WhatsApp v. UoI","Anuradha Bhasin v. UoI","PUCL v. UoI"],a:2,f:"Anuradha Bhasin v. UoI (2020) — Supreme Court held internet access is fundamental under Art. 19. Shutdowns must be temporary, necessary and proportionate. Indefinite shutdowns unconstitutional."}
+];
+let qCur=0,qScore=0,qAns=false;
+function renderQ(){
+  const q=Qs[qCur];
+  document.getElementById('qQ').textContent=q.q;
+  document.getElementById('qFill').style.width=(qCur/Qs.length*100)+'%';
+  document.getElementById('qTxt').textContent=`${qCur+1} / ${Qs.length}`;
+  document.getElementById('qOpts').innerHTML=q.o.map((o,i)=>`<button class="q-opt" onclick="pickQ(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('');
+  document.getElementById('qFb').className='q-fb';
+  document.getElementById('btnNxt').disabled=true;
+  document.getElementById('btnNxt').textContent='Next ›';
+  qAns=false;
+}
+function pickQ(idx){
+  if(qAns)return;
+  qAns=true;
+  const q=Qs[qCur];
+  document.querySelectorAll('.q-opt').forEach(o=>o.disabled=true);
+  document.querySelectorAll('.q-opt')[idx].classList.add(idx===q.a?'cor':'wrng');
+  if(idx!==q.a)document.querySelectorAll('.q-opt')[q.a].classList.add('cor');
+  const fb=document.getElementById('qFb');
+  if(idx===q.a){qScore++;fb.className='q-fb cfb show';fb.textContent='✓ Correct! '+q.f;}
+  else{fb.className='q-fb wfb show';fb.textContent='✗ Incorrect. '+q.f;}
+  document.getElementById('btnNxt').disabled=false;
+  if(qCur===Qs.length-1)document.getElementById('btnNxt').textContent='View Results ›';
+}
+function nextQ(){
+  if(!qAns)return;
+  qCur++;
+  if(qCur>=Qs.length){showQRes();return;}
+  renderQ();
+}
+function showQRes(){
+  document.getElementById('qMain').style.display='none';
+  document.getElementById('qRes').style.display='block';
+  document.getElementById('sBig').textContent=qScore+'/'+Qs.length;
+  const p=qScore/Qs.length;
+  let m,s;
+  if(p>=0.9){m='Cyber Law Expert! 🏆';s='Outstanding! You have excellent command of India\'s cybersecurity laws.';}
+  else if(p>=0.7){m='Well Informed Citizen 👍';s='Great score! A bit more study and you\'ll be a complete cyber law expert.';}
+  else if(p>=0.5){m='Awareness Building 📚';s='Good effort! Review the scam and law sections to strengthen your knowledge.';}
+  else{m='Keep Learning 💡';s='Cybersecurity law is complex — review the scams and laws sections and try again.';}
+  document.getElementById('sMsg').textContent=m;
+  document.getElementById('sSub').textContent=s;
+}
+function restartQ(){
+  qCur=0;qScore=0;qAns=false;
+  document.getElementById('qMain').style.display='block';
+  document.getElementById('qRes').style.display='none';
+  renderQ();
+}
+renderQ();
+
+/* ── CONTACT FORM ── */
+function submitForm(){
+  const n=document.getElementById('cN').value.trim();
+  const e=document.getElementById('cE').value.trim();
+  const s=document.getElementById('cS').value;
+  const m=document.getElementById('cM').value.trim();
+  const c=document.getElementById('cCon').checked;
+  if(!n||!e||!s||!m){alert('Please fill all required fields (*).');return;}
+  if(!c){alert('Please provide your consent to proceed.');return;}
+  document.getElementById('fOk').classList.add('show');
+  ['cN','cE','cP','cO','cM'].forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('cS').value='';
+  document.getElementById('cCon').checked=false;
+}
+
+/* ── SCROLL ANIMATIONS ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.svc,.sc,.fraud,.test,.exp-block,.case,.tip,.hi-card').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(22px)';
+  el.style.transition='opacity 0.5s ease, transform 0.5s ease';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
